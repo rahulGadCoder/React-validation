@@ -7,9 +7,9 @@ const Home = () => {
       <section className="container-fluid">
         <div className="row justify-content-start">
           <form action="#" className="form">
-            <div className="col-2"></div>
+            <div className="col-md-2"></div>
 
-            <div className="col-4">
+            <div className="col-md-4">
               <div className="input-box">
                 <label>Full Name</label>
                 <input type="text" placeholder="Enter full name" required />
@@ -70,7 +70,7 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="col-4">
+            <div className="col-md-4">
               <div className="input-box">
                 <label>Newwwwwwwwwww</label>
                 <input type="text" placeholder="Enter full name" required />
@@ -101,7 +101,7 @@ const Home = () => {
                 <input type="text" placeholder="Enter full name" required />
               </div>
             </div>
-            <div className="col-2"></div>
+            <div className="col-md-2"></div>
 
             <button>Submit</button>
           </form>
