@@ -5,49 +5,82 @@ const Home = () => {
   return (
     <>
       <h1 className="text-center" style={{ margin: "35px 0px", marginTop: "70px" }}>Customer field</h1>
-      <div className="container-md">
+      <div className="container-md my-4" style={{backgroundColor: 'grey'}}>
         <form className="row g-3">
           <div className="col-md-6">
-            <label htmlFor="inputEmail4" className="form-label">Email</label>
-            <input type="email" className="form-control" id="inputEmail4" />
+            <label htmlFor="gcpprojectId" className="form-label">GCP Project Id</label>
+            <input type="text" className="form-control" id="gcpprojectId" />
           </div>
           <div className="col-md-6">
-            <label htmlFor="inputPassword4" className="form-label">Password</label>
-            <input type="password" className="form-control" id="inputPassword4" />
+            <label htmlFor="billingId" className="form-label">Billing Account Id</label>
+            <input type="text" className="form-control" id="billingId" />
           </div>
-          <div className="col-12">
-            <label htmlFor="inputAddress" className="form-label">Address</label>
-            <input type="text" className="form-control" id="inputAddress" placeholder="1234 Main St" />
-          </div>
-          <div className="col-12">
-            <label htmlFor="inputAddress2" className="form-label">Address 2</label>
-            <input type="text" className="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" />
-          </div>
+
           <div className="col-md-6">
-            <label htmlFor="inputCity" className="form-label">City</label>
-            <input type="text" className="form-control" id="inputCity" />
-          </div>
-          <div className="col-md-4">
-            <label htmlFor="inputState" className="form-label">State</label>
-            <select id="inputState" className="form-select">
+            <label htmlFor="region" className="form-label">Region</label>
+            <select id="region" className="form-select">
               <option defaultValue>Choose...</option>
               <option>...</option>
             </select>
           </div>
-          <div className="col-md-2">
-            <label htmlFor="inputZip" className="form-label">Zip</label>
-            <input type="text" className="form-control" id="inputZip" />
+
+          <div className="col-md-6">
+            <label htmlFor="apigeenetwork" className="form-label">Apigee Network Name</label>
+            <input type="text" className="form-control" id="apigeenetwork" />
           </div>
-          <div className="col-12">
-            <div className="form-check">
-              <input className="form-check-input" type="checkbox" id="gridCheck" />
-              <label className="form-check-label" htmlFor="gridCheck">
-                Check me out
-              </label>
-            </div>
+
+
+          <div className="col-md-6">
+            <label htmlFor="apigeenetworkrouting" className="form-label">Apigee Network Routing Mode</label>
+            <select id="apigeenetworkrouting" className="form-select">
+              <option defaultValue>Choose...</option>
+              <option>...</option>
+            </select>
           </div>
+
+          <div className="col-md-6">
+            <label htmlFor="peeringrange" className="form-label">Apigee Network Peering Range</label>
+            <input type="text" className="form-control" id="peeringrange" />
+          </div>
+
+          <div className="col-md-6">
+            <label htmlFor="peeringtype" className="form-label">Apigee Network Peering Type</label>
+            <input type="text" className="form-control" id="peeringtype" />
+          </div>
+          <div className="col-md-6">
+            <label htmlFor="prefix" className="form-label">Apigee Network Prefix Length</label>
+            <input type="text" className="form-control" id="prefix" />
+          </div>
+
+          <div className="col-md-6">
+            <label htmlFor="supportnetwork" className="form-label">Apigee Support Network Routing Mode</label>
+            <select id="supportnetwork" className="form-select">
+              <option defaultValue>Choose...</option>
+              <option>...</option>
+            </select>
+          </div>
+
+          <div className="col-md-6">
+            <label htmlFor="peeringrange2" className="form-label">Apigee Network Peering Range</label>
+            <input type="text" className="form-control" id="peeringrange2" />
+          </div>
+
+          <div className="col-md-6">
+            <label htmlFor="supportpeering" className="form-label">Apigee Network Network Peering Type</label>
+            <input type="text" className="form-control" id="supportpeering" />
+          </div>
+          <div className="col-md-6">
+            <label htmlFor="prefixlength" className="form-label">Apigee Network Prfix Length</label>
+            <input type="text" className="form-control" id="prefixlength" />
+          </div>
+
+         
+
+
+
+        
           <div className="col-12">
-            <button type="submit" className="btn btn-primary">Sign in</button>
+            <button type="submit" className="btn btn-primary">Next</button>
           </div>
         </form>
       </div>
