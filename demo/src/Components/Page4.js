@@ -3,17 +3,16 @@ import React from "react";
 function Page4() {
   return (
     <div>
-      <div className="container" style={{ marginTop: "70px" }}>
+      <div className="container container-background">
         <form className="row g-3">
-          <div className="col-md-2"></div>
-          <div className="col-md-4">
+          <div className="col-md-6">
             <label htmlFor="gcpprojectId" className="form-label">
               Private Service Connect Network Name
             </label>
             <input type="text" className="form-control" id="gcpprojectId" />
           </div>
 
-          <div className="col-md-4 form-check" style={{ marginTop: "54px" }}>
+          <div className="col-md-6 form-check" style={{ marginTop: "54px" }}>
             <input
               className="form-check-input"
               type="checkbox"
@@ -26,10 +25,9 @@ function Page4() {
               Use Development Hostname
             </label>
           </div>
-          <div className="col-md-2"></div>
 
-          <div className="col-md-2"></div>
-          <div className="col-md-4 form-check">
+          <div className="col-md-1"></div>
+          <div className="col-md-5 form-check">
             <input
               className="form-check-input"
               type="checkbox"
@@ -62,14 +60,13 @@ function Page4() {
 
           <div className="col-md-8"></div>
 
-          <div className="col-md-4">
-            <button type="button" className="btn btn-primary me-4">
-              Previous
-            </button>
-            <button type="button" className="btn btn-secondary">
-              Review
-            </button>
+          <div className="col-md-10"></div>
+          <div className="col-md-2">
+           <button type="submit" className="btn btn-primary">Previous</button>
+            <button type="submit" className="btn btn-next btn-primary">view</button>
           </div>
+
+
         </form>
       </div>
     </div>

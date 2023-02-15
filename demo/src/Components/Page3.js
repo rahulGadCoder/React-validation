@@ -9,25 +9,22 @@ const [EnvGroup, SetEnvGroup] = useState([{enviromentGroup: ''}])
 
   return (
     <div>
-      <div className="container" style={{ marginTop: "70px" }}>
+      <div className="container container-background">
         <form className="row g-3">
-          <div className="col-md-2"></div>
-          <div className="col-md-4">
+          <div className="col-md-6">
             <label htmlFor="gcpprojectId" className="form-label">
               Environment Name
             </label>
             <input type="text" className="form-control" id="gcpprojectId" />
           </div>
-          <div className="col-md-4">
+          <div className="col-md-6">
             <label htmlFor="gcpprojectId" className="form-label">
             Environment Display Name
             </label>
             <input type="text" className="form-control" id="gcpprojectId" />
           </div>
-          <div className="col-md-2"></div>
 
-          <div className="col-md-2"></div>
-          <div className="col-md-4">
+          <div className="col-md-6">
             <label htmlFor="gcpprojectId" className="form-label">
              Environment Description
             </label>
@@ -35,11 +32,6 @@ const [EnvGroup, SetEnvGroup] = useState([{enviromentGroup: ''}])
           </div>
           <div className="col-md-4">
             <label htmlFor="EnvGroup" className="form-label">Environment Group</label>
-            {EnvGroup.map((element, index)=>{
-                
-            })}
-
-
             <select id="EnvGroup" className="form-select">
               <option defaultValue>Choose...</option>
               <option>...</option>
@@ -57,26 +49,21 @@ const [EnvGroup, SetEnvGroup] = useState([{enviromentGroup: ''}])
             </span>
           </div>
 
-          <div className="col-md-8"></div>
 
-          <div className="col-md-4">
-            <button type="button" className="btn btn-primary btn-lg me-4">
-              Remove
-            </button>
-            <button type="button" className="btn btn-secondary btn-lg">
-              Add More
-            </button>
+          <div className="col-md-7"></div>
+          <div className="col-md-5">
+            <button  type="button" className="btn btn-primary me-4"><i className="fa fa-minus me-2"></i>Remove</button>
+            <button  type="button" className="btn btn-primary"><i className="fa fa-plus me-2"></i>Add More</button>
           </div>
 
-          <div className="col-md-8"></div>
-          <div className="col-md-4">
-            <button type="button" className="btn btn-primary me-4">
-              Previous
-            </button>
-            <button type="button" className="btn btn-secondary">
-              Next
-            </button>
+
+          <div className="col-md-10"></div>
+          <div className="col-md-2">
+           <button type="submit" className="btn btn-primary">Previous</button>
+            <button type="submit" className="btn btn-next btn-primary">Next</button>
           </div>
+
+
         </form>
       </div>
     </div>

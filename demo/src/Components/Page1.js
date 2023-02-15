@@ -4,8 +4,7 @@ import "./Page1.css";
 const Page1 = () => {
   return (
     <>
-      <h1 className="text-center text-heading" >Apigee X Provisioning Assistance Wizard</h1>
-      <div className="container-md my-4" style={{ backgroundColor: 'grey' }}>
+      <div className="container-md my-4 container-background">
         <form className="row g-3">
 
           <div className="col-md-6">
@@ -16,6 +15,7 @@ const Page1 = () => {
             <label htmlFor="billingId" className="form-label">Billing Account Id</label>
             <input type="text" className="form-control" id="billingId" />
           </div>
+
 
           <div className="col-md-6">
             <label htmlFor="region" className="form-label">Region</label>
@@ -76,7 +76,8 @@ const Page1 = () => {
             <input type="text" className="form-control" id="prefixlength" />
           </div>
 
-          <div>
+          <div className="col-md-10"></div>
+          <div className="col-md-2">
             <button type="submit" className="btn btn-next btn-primary">Next</button>
           </div>
         </form>
