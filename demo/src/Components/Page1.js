@@ -1,12 +1,13 @@
 import React from "react";
-import "./Home.css";
+import "./Page1.css";
 
-const Home = () => {
+const Page1 = () => {
   return (
     <>
-      <h1 className="text-center" style={{ margin: "35px 0px", marginTop: "70px" }}>Customer field</h1>
-      <div className="container-md my-4" style={{backgroundColor: 'grey'}}>
+      <h1 className="text-center text-heading" >Apigee X Provisioning Assistance Wizard</h1>
+      <div className="container-md my-4" style={{ backgroundColor: 'grey' }}>
         <form className="row g-3">
+
           <div className="col-md-6">
             <label htmlFor="gcpprojectId" className="form-label">GCP Project Id</label>
             <input type="text" className="form-control" id="gcpprojectId" />
@@ -65,6 +66,7 @@ const Home = () => {
             <input type="text" className="form-control" id="peeringrange2" />
           </div>
 
+
           <div className="col-md-6">
             <label htmlFor="supportpeering" className="form-label">Apigee Network Network Peering Type</label>
             <input type="text" className="form-control" id="supportpeering" />
@@ -74,13 +76,8 @@ const Home = () => {
             <input type="text" className="form-control" id="prefixlength" />
           </div>
 
-         
-
-
-
-        
-          <div className="col-12">
-            <button type="submit" className="btn btn-primary">Next</button>
+          <div>
+            <button type="submit" className="btn btn-next btn-primary">Next</button>
           </div>
         </form>
       </div>
@@ -194,4 +191,4 @@ const Home = () => {
 // </div>
 // </section>
 
-export default Home;
+export default Page1;
