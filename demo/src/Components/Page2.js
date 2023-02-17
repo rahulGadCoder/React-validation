@@ -3,8 +3,19 @@ import plus from "./Icon/plus.png";
 import minus from "./Icon/minus.png";
 import "./Page.css";
 import { NavLink } from "react-router-dom";
+import { useFormik } from "formik";
+import { page2Schema, initialValuesPage2 } from "../schemas";
+
 
 function Page2() {
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+    initialValues: initialValuesPage2,
+    validationSchema: page2Schema,
+    onSubmit: (values, action) => {
+      console.log('values', values);
+    },
+  })
+
   const [envGroupFields, setEnvGroupFields] = useState([
     {
       EnvironmentGroup: "",
@@ -90,34 +101,54 @@ function Page2() {
   return (
     <div>
       <div className="container container-background">
-        <form className="row g-3">
+        <form className="row g-3" onSubmit={handleSubmit}>
+
           <div className="col-md-6">
-            <label htmlFor="gcpprojectId" className="form-label">
+            <label htmlFor="apigeeorgringname" className="form-label">
               Apigee Organization Key Ring Name
             </label>
-            <input type="text" className="form-control" id="gcpprojectId" />
+            <input type="text" id="apigeeorgringname"
+              name="apigee_org_kms_keyring_name" autoComplete="off" placeholder="Apigee Organization Key Ring Name"
+              value={values.apigee_org_kms_keyring_name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className="form-control" />
+            {errors.apigee_org_kms_keyring_name && touched.apigee_org_kms_keyring_name ? <p className="form-error">{errors.apigee_org_kms_keyring_name}</p> : null}
           </div>
           <div className="col-md-6"></div>
 
+
           <div className="col-md-6">
-            <label htmlFor="gcpprojectId" className="form-label">
+            <label htmlFor="apigeeorgringperiod" className="form-label">
               Apigee Organization Key Ring Rotation Period
             </label>
-            <input type="text" className="form-control" id="gcpprojectId" />
+            <input type="text" className="form-control" id="apigeeorgringperiod"
+              name="org_key_rotation_period" autoComplete="off" placeholder="Apigee Organization Key Ring Rotation Period"
+              value={values.org_key_rotation_period}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            {errors.org_key_rotation_period && touched.org_key_rotation_period ? <p className="form-error">{errors.org_key_rotation_period}</p> : null}
           </div>
           <div className="col-md-6">
-            <label htmlFor="billingId" className="form-label">
+            <label htmlFor="instance_key_rotation_period" className="form-label">
               Apigee Instance Key Ring Rotation Period
             </label>
-            <input type="text" className="form-control" id="billingId" />
+            <input type="text" className="form-control" id="keyrotationperiod"
+              name="instance_key_rotation_period" autoComplete="off" placeholder="Apigee Instance Key Ring Rotation Period"
+              value={values.instance_key_rotation_period}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            {errors.instance_key_rotation_period && touched.instance_key_rotation_period ? <p className="form-error">{errors.instance_key_rotation_period}</p> : null}
           </div>
 
           {envGroupFields.map((data, indexp) => {
-            console.log(envGroupFields);
             const { EnvironmentGroup, EnvironmentGroupHost } = data;
             return (
-              <div key={indexp}>
+              <div className="card card-body" key={indexp}>
                 <div className="row">
+                <h2>Environment Group</h2>
                   <div className="col-md-6">
                     <label htmlFor="envgroupId" className="form-label">
                       Environment Group Name
@@ -207,7 +238,6 @@ function Page2() {
 
           <div className="col-md-10"></div>
           <div className="col-md-2">
-
             <NavLink to="/">
               <button type="submit" className="btn btn-primary">
                 Previous
