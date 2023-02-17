@@ -1,5 +1,6 @@
 import React from "react";
-import "./Page1.css";
+import "./Page.css";
+import { NavLink } from "react-router-dom";
 
 const Page1 = () => {
   return (
@@ -78,7 +79,10 @@ const Page1 = () => {
 
           <div className="col-md-10"></div>
           <div className="col-md-2">
-            <button type="submit" className="btn btn-next btn-primary">Next</button>
+            <NavLink to="/step1">
+              <button type="submit" className="btn btn-next btn-primary">Next</button>
+            </NavLink>
+
           </div>
         </form>
       </div>
@@ -87,109 +91,5 @@ const Page1 = () => {
 };
 
 
-
-// <section className="container-fluid my-5">
-// <div className="row justify-content-start">
-//   <form action="#" className="form">
-//     <div className="col-md-2"></div>
-
-//     <div className="col-md-4">
-//       <div className="input-box">
-//         <label>Full Name</label>
-//         <input type="text" placeholder="Enter full name" required />
-//       </div>
-
-//       <div className="input-box">
-//         <label>Email Address</label>
-//         <input type="text" placeholder="Enter email address" required />
-//       </div>
-
-//       <div className="input-box">
-//         <label>Country</label>
-//         <div className="select-box">
-//           <select>
-//             <option hidden>Country</option>
-//             <option>America</option>
-//             <option>Japan</option>
-//             <option>India</option>
-//             <option>Nepal</option>
-//           </select>
-//         </div>
-//       </div>
-
-//       <div className="input-box">
-//         <label>City</label>
-//         <div className="select-box">
-//           <select>
-//             <option hidden>Country</option>
-//             <option>America</option>
-//             <option>Japan</option>
-//             <option>India</option>
-//             <option>Nepal</option>
-//           </select>
-//         </div>
-//       </div>
-
-//       <div className="input-box">
-//         <label>Email Address</label>
-//         <input type="text" placeholder="Enter email address" required />
-//       </div>
-
-//       <div className="input-box">
-//         <label>City</label>
-//         <div className="select-box">
-//           <select>
-//             <option hidden>Country</option>
-//             <option>America</option>
-//             <option>Japan</option>
-//             <option>India</option>
-//             <option>Nepal</option>
-//           </select>
-//         </div>
-//       </div>
-
-//       <div className="input-box">
-//         <label>Email Address</label>
-//         <input type="text" placeholder="Enter email address" required />
-//       </div>
-//     </div>
-
-//     <div className="col-md-4">
-//       <div className="input-box">
-//         <label>Newwwwwwwwwww</label>
-//         <input type="text" placeholder="Enter full name" required />
-//       </div>
-
-//       <div className="input-box">
-//         <label>Full Name</label>
-//         <input type="text" placeholder="Enter full name" required />
-//       </div>
-
-//       <div className="input-box">
-//         <label>Full Name</label>
-//         <input type="text" placeholder="Enter full name" required />
-//       </div>
-
-//       <div className="input-box">
-//         <label>Full Name</label>
-//         <input type="text" placeholder="Enter full name" required />
-//       </div>
-
-//       <div className="input-box">
-//         <label>Full Name</label>
-//         <input type="text" placeholder="Enter full name" required />
-//       </div>
-
-//       <div className="input-box">
-//         <label>Full Name</label>
-//         <input type="text" placeholder="Enter full name" required />
-//       </div>
-//     </div>
-//     <div className="col-md-2"></div>
-
-//     <button>Submit</button>
-//   </form>
-// </div>
-// </section>
 
 export default Page1;

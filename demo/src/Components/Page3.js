@@ -1,11 +1,12 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import minus from "./Icon/minus.png";
 import plus from "./Icon/plus.png";
-import "./Page1.css";
+import "./Page.css";
+import { NavLink } from "react-router-dom";
 
 function Page3() {
 
-const [EnvGroup, SetEnvGroup] = useState([{enviromentGroup: ''}])
+  const [EnvGroup, SetEnvGroup] = useState([{ enviromentGroup: '' }])
 
   return (
     <div>
@@ -19,14 +20,14 @@ const [EnvGroup, SetEnvGroup] = useState([{enviromentGroup: ''}])
           </div>
           <div className="col-md-6">
             <label htmlFor="gcpprojectId" className="form-label">
-            Environment Display Name
+              Environment Display Name
             </label>
             <input type="text" className="form-control" id="gcpprojectId" />
           </div>
 
           <div className="col-md-6">
             <label htmlFor="gcpprojectId" className="form-label">
-             Environment Description
+              Environment Description
             </label>
             <input type="text" className="form-control" id="gcpprojectId" />
           </div>
@@ -52,15 +53,22 @@ const [EnvGroup, SetEnvGroup] = useState([{enviromentGroup: ''}])
 
           <div className="col-md-7"></div>
           <div className="col-md-5">
-            <button  type="button" className="btn btn-primary me-4"><i className="fa fa-minus me-2"></i>Remove</button>
-            <button  type="button" className="btn btn-primary"><i className="fa fa-plus me-2"></i>Add More</button>
+            <button type="button" className="btn btn-primary me-4"><i className="fa fa-minus me-2"></i>Remove</button>
+            <button type="button" className="btn btn-primary"><i className="fa fa-plus me-2"></i>Add More</button>
           </div>
 
 
           <div className="col-md-10"></div>
           <div className="col-md-2">
-           <button type="submit" className="btn btn-primary">Previous</button>
-            <button type="submit" className="btn btn-next btn-primary">Next</button>
+
+            <NavLink to="/step1">
+              <button type="submit" className="btn btn-primary">Previous</button>
+            </NavLink>
+
+            <NavLink to="/step3">
+             <button type="submit" className="btn btn-next btn-primary">Next</button>
+            </NavLink>
+
           </div>
 
 

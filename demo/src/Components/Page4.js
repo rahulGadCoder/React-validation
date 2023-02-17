@@ -1,4 +1,6 @@
 import React from "react";
+import "./Page.css";
+import { NavLink } from "react-router-dom";
 
 function Page4() {
   return (
@@ -62,8 +64,14 @@ function Page4() {
 
           <div className="col-md-10"></div>
           <div className="col-md-2">
-           <button type="submit" className="btn btn-primary">Previous</button>
-            <button type="submit" className="btn btn-next btn-primary">view</button>
+
+            <NavLink to="/step2">
+              <button type="submit" className="btn btn-primary">Previous</button>
+            </NavLink>
+
+            <NavLink to="/step3">
+              <button type="submit" className="btn btn-next btn-primary">view</button>
+            </NavLink>
           </div>
 
 

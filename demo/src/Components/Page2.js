@@ -1,48 +1,91 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import plus from "./Icon/plus.png";
 import minus from "./Icon/minus.png";
-import "./Page1.css";
+import "./Page.css";
+import { NavLink } from "react-router-dom";
 
 function Page2() {
-  const [inputFields, setInputFields] = useState([
+  const [envGroupFields, setEnvGroupFields] = useState([
     {
       EnvironmentGroup: "",
-      EnvironmentGroupHost: "",
+      EnvironmentGroupHost: [
+        {
+          envGroupHostName: "",
+        },
+      ],
     },
   ]);
 
   const addInputField = (e) => {
     e.preventDefault();
-
-    setInputFields([
-      ...inputFields,
+    setEnvGroupFields([
+      ...envGroupFields,
       {
         EnvironmentGroup: "",
-        EnvironmentGroupHost: "",
+        EnvironmentGroupHost: [{ envGroupHostName: "" }],
       },
     ]);
   };
   const removeInputFields = (index) => {
-    const rows = [...inputFields];
+    const rows = [...envGroupFields];
     rows.splice(index, 1);
-    setInputFields(rows);
+    setEnvGroupFields(rows);
   };
-  const handleChange = (index, evnt) => {
+
+  const handleChangeEnvGroup = (index, evnt) => {
     const { name, value } = evnt.target;
-    const list = [...inputFields];
+    const list = [...envGroupFields];
     list[index][name] = value;
-    setInputFields(list);
+    setEnvGroupFields(list);
   };
 
   // Host Operations //
+  const handleChangeEnvHost = (indexp, indexchild) => {
+    return (e) => {
+      setEnvGroupFields((prevState) => {
+        return prevState.map((element, i) => {
+          let newState = {};
+          if (i === indexp) {
+            newState = {
+              ...element,
+              EnvironmentGroupHost: [...element.EnvironmentGroupHost],
+            };
+            newState.EnvironmentGroupHost[indexchild].envGroupHostName =
+              e.target.value;
+            return newState;
+          } else {
+            return element;
+          }
+        });
+      });
+    };
+  };
 
-  const addHostNameField = () =>{
+  const addHostNameField = (indexp) => {
+    return (e) => {
+      setEnvGroupFields((prevState) => {
+        return prevState.map((element, i) => {
+          if (i === indexp) {
+            return {
+              ...element,
+              EnvironmentGroupHost: [
+                ...element.EnvironmentGroupHost,
+                { envGroupHostName: "" },
+              ],
+            };
+          } else {
+            return element;
+          }
+        });
+      });
+    };
+  };
 
-  }
-
-  const removeHostNameField =()=>{
-
-  }
+  const removeHostNameField = (indexp, indexchild) => {
+    const rows = [...envGroupFields];
+    rows[indexp].EnvironmentGroupHost.splice(indexchild, 1);
+    setEnvGroupFields(rows);
+  };
 
   return (
     <div>
@@ -69,42 +112,19 @@ function Page2() {
             <input type="text" className="form-control" id="billingId" />
           </div>
 
-          {/* <h4>Environment Group</h4>
-          <div className="col-md-6">
-            <label htmlFor="envgroupId" className="form-label">
-              Environment Group Name
-            </label>
-            <input type="text" className="form-control" id="envgroupId" />
-          </div>
-
-          <div className="col-md-4">
-            <label htmlFor="envhostname" className="form-label">
-              Environment Group Hostname
-            </label>
-            <input type="text" className="form-control" id="envhostname" />
-          </div>
-          <div className="col-md-2">
-            <img className="img-icon" src={minus} alt="remove" />
-            <img
-              className="img-icon"
-              style={{ marginLeft: "15px" }}
-              src={plus}
-              alt="Add"
-            />
-          </div> */}
-
-          {inputFields.map((data, index) => {
+          {envGroupFields.map((data, indexp) => {
+            console.log(envGroupFields);
             const { EnvironmentGroup, EnvironmentGroupHost } = data;
             return (
-              <div>
-                <div className="row" key={index}>
+              <div key={indexp}>
+                <div className="row">
                   <div className="col-md-6">
                     <label htmlFor="envgroupId" className="form-label">
                       Environment Group Name
                     </label>
                     <input
                       type="text"
-                      onChange={(evnt) => handleChange(index, evnt)}
+                      onChange={(evnt) => handleChangeEnvGroup(indexp, evnt)}
                       value={EnvironmentGroup}
                       name="EnvironmentGroup"
                       className="form-control"
@@ -112,51 +132,72 @@ function Page2() {
                     />
                   </div>
 
-                  <div className="col-md-4">
-                    <label htmlFor="envhostname" className="form-label">
-                      Environment Group Hostname
-                    </label>
-                    <input
-                      type="text"
-                      onChange={(evnt) => handleChange(index, evnt)}
-                      value={EnvironmentGroupHost}
-                      name="EnvironmentGroupHost"
-                      className="form-control"
-                      placeholder="Env Host Name"
-                    />
-                  </div>
+                  {EnvironmentGroupHost.map((element, index) => {
 
-                  <div className="col-md-2">
-                    {inputFields.length !== 1 && (
-                      <img
-                        className="img-icon"
-                        src={minus}
-                        alt="remove"
-                        onClick={() => removeHostNameField(index)}
-                      />
-                    )}
-                    {inputFields.length - 1 === index && (
-                      <img
-                        className="img-icon"
-                        style={{ marginLeft: "15px" }}
-                        src={plus}
-                        onClick={(e) => {addHostNameField(e);}}
-                        alt="Add"
-                      />
-                    )}
-                  </div>
+                    return (
+                      <Fragment key={index}>
+                        {index > 0 ? (<div className="col-md-6"></div>) : ''}
+                        <div className="col-md-4">
+                          <label htmlFor="envhostname" className="form-label">
+                            Environment Group Hostname
+                          </label>
+                          <input
+                            type="text"
+                            value={element.envGroupHostName}
+                            onChange={handleChangeEnvHost(indexp, index)}
+                            name="envGroupHostName"
+                            className="form-control"
+                            placeholder="Env Host Name"
+                          />
+                        </div>
+
+                        <div className="col-md-2">
+                          {EnvironmentGroupHost.length !== 1 && (
+                            <img
+                              className="img-icon"
+                              src={minus}
+                              alt="remove"
+                              onClick={() => removeHostNameField(indexp, index)}
+                            />
+                          )}
+                          {EnvironmentGroupHost.length - 1 === index && (
+                            <img
+                              className="img-icon"
+                              style={{ marginLeft: "15px" }}
+                              src={plus}
+                              id={indexp}
+                              onClick={addHostNameField(indexp)}
+                              alt="Add"
+                            />
+                          )}
+                        </div>
+                      </Fragment>
+                    );
+                  })}
                 </div>
 
-                <div className="row" style={{marginTop: '30px'}}>
+                <div className="row" style={{ marginTop: "30px" }}>
                   <div className="col-md-7"></div>
                   <div className="col-md-5">
-                  {inputFields.length !== 1 && (<button type="button" className="btn btn-primary me-4" onClick={() => removeInputFields(index)}>
-                      <i className="fa fa-minus me-2"></i>Remove
-                    </button> )}
-                    {inputFields.length - 1 === index && (  
-                    <button type="button" className="btn btn-primary" onClick={(e) => {addInputField(e);}}>
-                      <i className="fa fa-plus me-2"></i>Add More
-                    </button>
+                    {envGroupFields.length !== 1 && (
+                      <button
+                        type="button"
+                        className="btn btn-primary me-4"
+                        onClick={() => removeInputFields(indexp)}
+                      >
+                        <i className="fa fa-minus me-2"></i>Remove
+                      </button>
+                    )}
+                    {envGroupFields.length - 1 === indexp && (
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={(e) => {
+                          addInputField(e);
+                        }}
+                      >
+                        <i className="fa fa-plus me-2"></i>Add More
+                      </button>
                     )}
                   </div>
                 </div>
@@ -164,15 +205,17 @@ function Page2() {
             );
           })}
 
-
           <div className="col-md-10"></div>
           <div className="col-md-2">
-            <button type="submit" className="btn btn-primary">
-              Previous
-            </button>
-            <button type="submit" className="btn btn-next btn-primary">
-              Next
-            </button>
+
+            <NavLink to="/">
+              <button type="submit" className="btn btn-primary">
+                Previous
+              </button>
+            </NavLink>
+
+            <NavLink to="/step2"> <button type="submit" className="btn btn-next btn-primary"> Next </button></NavLink>
+
           </div>
         </form>
       </div>
