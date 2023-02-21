@@ -28,8 +28,7 @@ const Page1 = () => {
               value={values.project_id}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="form-control" id="project_id" />
-            <span className="fa fa-search"></span>
+              className="form-control searchbar" id="project_id" />
             {errors.project_id && touched.project_id ? <p className="form-error">{errors.project_id}</p> : null}
           </div>
         </div>

@@ -1,13 +1,7 @@
 import * as Yup from "yup";
 
 export const page1Schema = Yup.object({
-    project_id: Yup.string().min(4).max(12).required("Please enter project Id"),
-    // billing_account: Yup.string().min(4).max(12).required("Please enter Billing Account Id"),
-    // project_parent: Yup.string().min(4).max(12).required("Please enter Parent Project Id"),
-    // project_create: Yup.string().min(4).max(12).required("Please enter Parent Project Id"),
-    // apigee_instance_region: Yup.string().min(4).max(12).required("Please select region"),
-
-
+    project_id: Yup.string().min(4).max(20).required("Please enter project Id"),
     billing_account: Yup.string().nullable(true),
     project_parent: Yup.string().nullable(true),
     project_create: Yup.string().nullable(true),
