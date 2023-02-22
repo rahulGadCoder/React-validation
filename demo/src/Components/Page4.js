@@ -6,6 +6,7 @@ import { page4Schema, initialValuesPage4 } from "../schemas";
 import Progressbar from "./ProgressBar";
 
 function Page4() {
+  const progress = 100;
   useEffect(() => {
     const step4Object = JSON.parse(localStorage.getItem("step4Object"));
 
@@ -141,7 +142,7 @@ function Page4() {
         <div className="col-md-2"></div>
 
         <div className="col-md-10 mrg-top">
-          <Progressbar />
+        <Progressbar progress={progress} />
         </div>
         <div className="col-md-2">
           <NavLink to="/step2">

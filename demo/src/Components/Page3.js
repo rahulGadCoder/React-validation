@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import Progressbar from "./ProgressBar";
 
 function Page3() {
+  const progress = 75;
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -240,7 +241,7 @@ function Page3() {
         })}
 
         <div className="col-md-10 mrg-top">
-          <Progressbar />
+        <Progressbar progress={progress} />
         </div>
         <div className="col-md-2">
           <NavLink to="/step1">

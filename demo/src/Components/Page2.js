@@ -10,6 +10,8 @@ import Progressbar from "./ProgressBar";
 
 
 function Page2() {
+  const progress = 50;
+
   const navigate = useNavigate()
 
 
@@ -256,7 +258,7 @@ function Page2() {
         })}
 
         <div className="col-md-10 mrg-top">
-          <Progressbar />
+          <Progressbar progress={progress} />
         </div>
         <div className="col-md-2">
           <NavLink to="/">

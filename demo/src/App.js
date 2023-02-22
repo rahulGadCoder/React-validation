@@ -1,13 +1,12 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Page1 from "./Components/Page1";
 import NavBar from "./Components/NavBar";
 import Page2 from "./Components/Page2";
 import Page3 from "./Components/Page3";
 import Page4 from "./Components/Page4";
 import BasicExample from "./Components/BasicExample";
-import ProgressBar from "./Components/ProgressBar";
 
 const App = () => {
   return (
