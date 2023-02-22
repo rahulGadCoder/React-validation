@@ -34,8 +34,28 @@
   color: #dc3545;
 }
 
-.demo{
-  right: 10px;
-  cursor: pointer;
-  z-index: 100;
+.mrg-top {
+  margin-top: 25px;
 }
+
+.tool-icon{
+  margin-top: -28px;
+  margin-right: 10px;
+}
+
+div.toolicon {
+  position: relative;
+}
+div.toolicon span {
+  position: absolute;
+  right: 3px;
+  width: 15px;
+  height: 15px;
+  color: white;
+  background-color: black;
+  text-align: center;
+  line-height: 1em;
+  border-radius: 50%;
+  cursor: pointer;
+}
+

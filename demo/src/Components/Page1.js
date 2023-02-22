@@ -1,15 +1,23 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Page.css";
 import { useFormik } from "formik";
 import { page1Schema, region, initialValuesPage1 } from "../schemas";
+import Progressbar from "./ProgressBar";
 
 const Page1 = () => {
   const navigate = useNavigate()
 
+  const [progress, setProgress] = useState(0);
+
+
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: initialValuesPage1,
     validationSchema: page1Schema,
+
+    onChange: (value) => {
+      console.log('value', value);
+    },
 
     onSubmit: (value) => {
       localStorage.setItem('step1Object', JSON.stringify(value));
@@ -22,15 +30,23 @@ const Page1 = () => {
     <div className="container-md my-4 container-background">
       <form className="row g-3" onSubmit={handleSubmit}>
         <div className="col-md-6">
-          <div className="form-group">
+          <div className="form-group toolicon">
             <label htmlFor="project_id" className="form-label">GCP Project Id</label>
             <input type="text" name="project_id" autoComplete="off" placeholder="Gcp Project Id"
               value={values.project_id}
-              onChange={handleChange}
+              onChange={e => { handleChange(e); }}
               onBlur={handleBlur}
               className="form-control searchbar" id="project_id" />
+            <span className="tool-icon"><i className="fa fa-question" aria-hidden="true">
+            </i></span>
+
+            <button type="button" className="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Tooltip on bottom">
+              Tooltip on bottom
+            </button>
+
             {errors.project_id && touched.project_id ? <p className="form-error">{errors.project_id}</p> : null}
           </div>
+
         </div>
         <div className="col-md-6">
           <label htmlFor="billingId" className="form-label">Billing Account Id</label>
@@ -154,7 +170,9 @@ const Page1 = () => {
           {errors.apigee_network_support_peering_range_prefix_length && touched.apigee_network_support_peering_range_prefix_length ? <p className="form-error">{errors.apigee_network_support_peering_range_prefix_length}</p> : null}
         </div>
 
-        <div className="col-md-10"></div>
+        <div className="col-md-10 mrg-top">
+          <Progressbar progress={progress} />
+        </div>
         <div className="col-md-2">
           <button type="submit" data-toggle="tooltip" data-placement="right" title="Tooltip on right" className="btn btn-next btn-primary">Next</button>
         </div>

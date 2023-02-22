@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { page2Schema, initialValuesPage2 } from "../schemas";
+import Progressbar from "./ProgressBar";
 
 
 function Page2() {
@@ -254,7 +255,9 @@ function Page2() {
           );
         })}
 
-        <div className="col-md-10"></div>
+        <div className="col-md-10 mrg-top">
+          <Progressbar />
+        </div>
         <div className="col-md-2">
           <NavLink to="/">
             <button type="submit" className="btn btn-primary">

@@ -3,6 +3,7 @@ import "./Page.css";
 import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
 import { page4Schema, initialValuesPage4 } from "../schemas";
+import Progressbar from "./ProgressBar";
 
 function Page4() {
   useEffect(() => {
@@ -139,7 +140,9 @@ function Page4() {
         </div>
         <div className="col-md-2"></div>
 
-        <div className="col-md-10"></div>
+        <div className="col-md-10 mrg-top">
+          <Progressbar />
+        </div>
         <div className="col-md-2">
           <NavLink to="/step2">
             <button type="submit" className="btn btn-primary">
