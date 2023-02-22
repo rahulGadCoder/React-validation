@@ -51,37 +51,47 @@ const Page1 = () => {
           </div>
         </div>
         <div className="col-md-6">
-          <label htmlFor="billingId" className="form-label">
-            Billing Account Id
-          </label>
-          <input
-            type="text"
-            name="billing_account"
-            autoComplete="off"
-            placeholder="Billing Account Id"
-            value={values.billing_account}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            className="form-control"
-            id="billingId"
-          />
+          <div className="form-group toolicon">
+            <label htmlFor="billingId" className="form-label">
+              Billing Account Id
+            </label>
+            <input
+              type="text"
+              name="billing_account"
+              autoComplete="off"
+              placeholder="Billing Account Id"
+              value={values.billing_account}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className="form-control"
+              id="billingId"
+            />
+            <span className="tool-icon">
+              <CommonTooltip title={desc.billing_account} />
+            </span>
+          </div>
         </div>
 
         <div className="col-md-6">
-          <label htmlFor="projectparent" className="form-label">
-            Project Parent
-          </label>
-          <input
-            type="text"
-            name="project_parent"
-            autoComplete="off"
-            placeholder="Project Parent"
-            value={values.project_parent}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            className="form-control"
-            id="projectparent"
-          />
+          <div className="form-group toolicon">
+            <label htmlFor="projectparent" className="form-label">
+              Project Parent
+            </label>
+            <input
+              type="text"
+              name="project_parent"
+              autoComplete="off"
+              placeholder="Project Parent"
+              value={values.project_parent}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className="form-control"
+              id="projectparent"
+            />
+            <span className="tool-icon">
+              <CommonTooltip title={desc.project_parent} />
+            </span>
+          </div>
         </div>
 
         <div className="col-md-1"></div>
@@ -126,139 +136,170 @@ const Page1 = () => {
         <div className="col-md-6"></div>
 
         <div className="col-md-6">
-          <label htmlFor="apigeenetwork" className="form-label">
-            Apigee Network Name
-          </label>
-          <input
-            type="text"
-            name="apigee_network_name"
-            autoComplete="off"
-            placeholder="Apigee Network Name"
-            className="form-control"
-            id="apigeenetwork"
-            value={values.apigee_network_name}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.apigee_network_name && touched.apigee_network_name ? (
-            <p className="form-error">{errors.apigee_network_name}</p>
-          ) : null}
-        </div>
-        <div className="col-md-6">
-          <label htmlFor="apigeesupportnetwork" className="form-label">
-            Apigee Support Network Name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            name="apigee_network_routing_mode"
-            autoComplete="off"
-            placeholder="Apigee Support Network Name"
-            id="apigeesupportnetwork"
-            value={values.apigee_network_routing_mode}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.apigee_network_routing_mode &&
-          touched.apigee_network_routing_mode ? (
-            <p className="form-error">{errors.apigee_network_routing_mode}</p>
-          ) : null}
+          <div className="form-group toolicon">
+            <label htmlFor="apigeenetwork" className="form-label">
+              Apigee Network Name
+            </label>
+            <input
+              type="text"
+              name="apigee_network_name"
+              autoComplete="off"
+              placeholder="Apigee Network Name"
+              className="form-control"
+              id="apigeenetwork"
+              value={values.apigee_network_name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <span className="tool-icon">
+              <CommonTooltip title={desc.apigee_network_name} />
+            </span>
+            {errors.apigee_network_name && touched.apigee_network_name ? (
+              <p className="form-error">{errors.apigee_network_name}</p>
+            ) : null}
+          </div>
         </div>
 
         <div className="col-md-6">
-          <label htmlFor="peeringrange" className="form-label">
-            Apigee Network Peering Range
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="peeringrange"
-            name="apigee_network_main_peering_range"
-            autoComplete="off"
-            placeholder="Apigee Network Peering Range"
-            value={values.apigee_network_main_peering_range}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.apigee_network_main_peering_range &&
-          touched.apigee_network_main_peering_range ? (
-            <p className="form-error">
-              {errors.apigee_network_main_peering_range}
-            </p>
-          ) : null}
+          <div className="form-group toolicon">
+            <label htmlFor="apigeesupportnetwork" className="form-label">
+              Apigee Support Network Name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              name="apigee_network_routing_mode"
+              autoComplete="off"
+              placeholder="Apigee Support Network Name"
+              id="apigeesupportnetwork"
+              value={values.apigee_network_routing_mode}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <span className="tool-icon">
+              <CommonTooltip title={desc.apigee_network_routing_mode} />
+            </span>
+            {errors.apigee_network_routing_mode &&
+              touched.apigee_network_routing_mode ? (
+              <p className="form-error">{errors.apigee_network_routing_mode}</p>
+            ) : null}
+          </div>
         </div>
 
         <div className="col-md-6">
-          <label htmlFor="prefixlength" className="form-label">
-            Apigee Network Prefix Length
-          </label>
-          <input
-            type="number"
-            className="form-control"
-            id="prefixlength"
-            min="1"
-            max="22"
-            name="apigee_network_main_peering_range_prefix_length"
-            autoComplete="off"
-            placeholder="Apigee Network Prefix Length"
-            value={values.apigee_network_main_peering_range_prefix_length}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.apigee_network_main_peering_range_prefix_length &&
-          touched.apigee_network_main_peering_range_prefix_length ? (
-            <p className="form-error">
-              {errors.apigee_network_main_peering_range_prefix_length}
-            </p>
-          ) : null}
+          <div className="form-group toolicon">
+            <label htmlFor="peeringrange" className="form-label">
+              Apigee Network Peering Range
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="peeringrange"
+              name="apigee_network_main_peering_range"
+              autoComplete="off"
+              placeholder="Apigee Network Peering Range"
+              value={values.apigee_network_main_peering_range}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <span className="tool-icon">
+              <CommonTooltip title={desc.apigee_network_routing_mode} />
+            </span>
+            {errors.apigee_network_main_peering_range &&
+              touched.apigee_network_main_peering_range ? (
+              <p className="form-error">
+                {errors.apigee_network_main_peering_range}
+              </p>
+            ) : null}
+          </div>
         </div>
 
         <div className="col-md-6">
-          <label htmlFor="peeringrange1" className="form-label">
-            Apigee Network Peering Range
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="peeringrange1"
-            name="apigee_network_support_peering_range"
-            autoComplete="off"
-            placeholder="Apigee Network Peering Range"
-            value={values.apigee_network_support_peering_range}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.apigee_network_support_peering_range &&
-          touched.apigee_network_support_peering_range ? (
-            <p className="form-error">
-              {errors.apigee_network_support_peering_range}
-            </p>
-          ) : null}
+          <div className="form-group toolicon">
+            <label htmlFor="prefixlength" className="form-label">
+              Apigee Network Prefix Length
+            </label>
+            <input
+              type="number"
+              className="form-control"
+              id="prefixlength"
+              min="1"
+              max="22"
+              name="apigee_network_main_peering_range_prefix_length"
+              autoComplete="off"
+              placeholder="Apigee Network Prefix Length"
+              value={values.apigee_network_main_peering_range_prefix_length}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <span className="tool-icon">
+              <CommonTooltip title={desc.apigee_network_main_peering_range_prefix_length} />
+            </span>
+            {errors.apigee_network_main_peering_range_prefix_length &&
+              touched.apigee_network_main_peering_range_prefix_length ? (
+              <p className="form-error">
+                {errors.apigee_network_main_peering_range_prefix_length}
+              </p>
+            ) : null}
+          </div>
         </div>
 
         <div className="col-md-6">
-          <label htmlFor="prefixlength1" className="form-label">
-            Apigee Network Prefix Length
-          </label>
-          <input
-            type="number"
-            className="form-control"
-            id="prefixlength1"
-            min="1"
-            max="28"
-            name="apigee_network_support_peering_range_prefix_length"
-            autoComplete="off"
-            placeholder="Apigee Network Prefix Length"
-            value={values.apigee_network_support_peering_range_prefix_length}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.apigee_network_support_peering_range_prefix_length &&
-          touched.apigee_network_support_peering_range_prefix_length ? (
-            <p className="form-error">
-              {errors.apigee_network_support_peering_range_prefix_length}
-            </p>
-          ) : null}
+          <div className="form-group toolicon">
+            <label htmlFor="peeringrange1" className="form-label">
+              Apigee Network Peering Range
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="peeringrange1"
+              name="apigee_network_support_peering_range"
+              autoComplete="off"
+              placeholder="Apigee Network Peering Range"
+              value={values.apigee_network_support_peering_range}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <span className="tool-icon">
+              <CommonTooltip title={desc.apigee_network_main_peering_range_prefix_length} />
+            </span>
+            {errors.apigee_network_support_peering_range &&
+              touched.apigee_network_support_peering_range ? (
+              <p className="form-error">
+                {errors.apigee_network_support_peering_range}
+              </p>
+            ) : null}
+          </div>
+        </div>
+
+        <div className="col-md-6">
+          <div className="form-group toolicon">
+            <label htmlFor="prefixlength1" className="form-label">
+              Apigee Network Prefix Length
+            </label>
+            <input
+              type="number"
+              className="form-control"
+              id="prefixlength1"
+              min="1"
+              max="28"
+              name="apigee_network_support_peering_range_prefix_length"
+              autoComplete="off"
+              placeholder="Apigee Network Prefix Length"
+              value={values.apigee_network_support_peering_range_prefix_length}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <span className="tool-icon">
+              <CommonTooltip title={desc.apigee_network_main_peering_range_prefix_length} />
+            </span>
+            {errors.apigee_network_support_peering_range_prefix_length &&
+              touched.apigee_network_support_peering_range_prefix_length ? (
+              <p className="form-error">
+                {errors.apigee_network_support_peering_range_prefix_length}
+              </p>
+            ) : null}
+          </div>
         </div>
 
         <div className="col-md-10 mrg-top">

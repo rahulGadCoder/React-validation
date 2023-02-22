@@ -5,8 +5,9 @@ import "./Page.css";
 import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
-import { page2Schema, initialValuesPage2 } from "../schemas";
+import { page2Schema, initialValuesPage2, desc } from "../schemas";
 import Progressbar from "./ProgressBar";
+import CommonTooltip from "./CommonTooltip";
 
 
 function Page2() {
@@ -124,43 +125,59 @@ function Page2() {
     <div className="container container-background">
       <form className="row g-3" onSubmit={handleSubmit}>
         <div className="col-md-6">
-          <label htmlFor="apigeeorgringname" className="form-label">
-            Apigee Organization Key Ring Name
-          </label>
-          <input type="text" id="apigeeorgringname"
-            name="apigee_org_kms_keyring_name" autoComplete="off" placeholder="Apigee Organization Key Ring Name"
-            value={values.apigee_org_kms_keyring_name}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            className="form-control" />
-          {errors.apigee_org_kms_keyring_name && touched.apigee_org_kms_keyring_name ? <p className="form-error">{errors.apigee_org_kms_keyring_name}</p> : null}
+          <div className="form-group toolicon">
+            <label htmlFor="apigeeorgringname" className="form-label">
+              Apigee Organization Key Ring Name
+            </label>
+            <input type="text" id="apigeeorgringname"
+              name="apigee_org_kms_keyring_name" autoComplete="off" placeholder="Apigee Organization Key Ring Name"
+              value={values.apigee_org_kms_keyring_name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className="form-control" />
+            <span className="tool-icon">
+              <CommonTooltip title={desc.apigee_org_kms_keyring_name} />
+            </span>
+            {errors.apigee_org_kms_keyring_name && touched.apigee_org_kms_keyring_name ? <p className="form-error">{errors.apigee_org_kms_keyring_name}</p> : null}
+          </div>
         </div>
         <div className="col-md-6"></div>
 
 
         <div className="col-md-6">
-          <label htmlFor="apigeeorgringperiod" className="form-label">
-            Apigee Organization Key Ring Rotation Period
-          </label>
-          <input type="text" className="form-control" id="apigeeorgringperiod"
-            name="org_key_rotation_period" autoComplete="off" placeholder="Apigee Organization Key Ring Rotation Period"
-            value={values.org_key_rotation_period}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.org_key_rotation_period && touched.org_key_rotation_period ? <p className="form-error">{errors.org_key_rotation_period}</p> : null}
+          <div className="form-group toolicon">
+            <label htmlFor="apigeeorgringperiod" className="form-label">
+              Apigee Organization Key Ring Rotation Period
+            </label>
+            <input type="text" className="form-control" id="apigeeorgringperiod"
+              name="org_key_rotation_period" autoComplete="off" placeholder="Apigee Organization Key Ring Rotation Period"
+              value={values.org_key_rotation_period}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <span className="tool-icon">
+              <CommonTooltip title={desc.org_key_rotation_period} />
+            </span>
+            {errors.org_key_rotation_period && touched.org_key_rotation_period ? <p className="form-error">{errors.org_key_rotation_period}</p> : null}
+          </div>
         </div>
+
         <div className="col-md-6">
-          <label htmlFor="instance_key_rotation_period" className="form-label">
-            Apigee Instance Key Ring Rotation Period
-          </label>
-          <input type="text" className="form-control" id="keyrotationperiod"
-            name="instance_key_rotation_period" autoComplete="off" placeholder="Apigee Instance Key Ring Rotation Period"
-            value={values.instance_key_rotation_period}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.instance_key_rotation_period && touched.instance_key_rotation_period ? <p className="form-error">{errors.instance_key_rotation_period}</p> : null}
+          <div className="form-group toolicon">
+            <label htmlFor="instance_key_rotation_period" className="form-label">
+              Apigee Instance Key Ring Rotation Period
+            </label>
+            <input type="text" className="form-control" id="keyrotationperiod"
+              name="instance_key_rotation_period" autoComplete="off" placeholder="Apigee Instance Key Ring Rotation Period"
+              value={values.instance_key_rotation_period}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <span className="tool-icon">
+              <CommonTooltip title={desc.instance_key_rotation_period} />
+            </span>
+            {errors.instance_key_rotation_period && touched.instance_key_rotation_period ? <p className="form-error">{errors.instance_key_rotation_period}</p> : null}
+          </div>
         </div>
 
         {envGroupFields.map((data, indexp) => {
@@ -170,18 +187,23 @@ function Page2() {
               <div className="row">
                 <h2>Environment Group</h2>
                 <div className="col-md-6">
-                  <label htmlFor="envgroupId" className="form-label">
-                    Environment Group Name
-                  </label>
-                  <input
-                    type="text"
-                    onChange={(evnt) => handleChangeEnvGroup(indexp, evnt)}
-                    value={EnvironmentGroup}
-                    name="EnvironmentGroup"
-                    className="form-control"
-                    placeholder="Env Group"
-                    onBlur={handleBlur}
-                  />
+                  <div className="form-group toolicon">
+                    <label htmlFor="envgroupId" className="form-label">
+                      Environment Group Name
+                    </label>
+                    <input
+                      type="text"
+                      onChange={(evnt) => handleChangeEnvGroup(indexp, evnt)}
+                      value={EnvironmentGroup}
+                      name="EnvironmentGroup"
+                      className="form-control"
+                      placeholder="Env Group"
+                      onBlur={handleBlur}
+                    />
+                    <span className="tool-icon">
+                      <CommonTooltip title={desc.envgroups} />
+                    </span>
+                  </div>
                 </div>
 
                 {EnvironmentGroupHost.map((element, index) => {
@@ -189,18 +211,23 @@ function Page2() {
                     <Fragment key={index}>
                       {index > 0 ? (<div className="col-md-6"></div>) : ''}
                       <div className="col-md-4">
-                        <label htmlFor="envhostname" className="form-label">
-                          Environment Group Hostname
-                        </label>
-                        <input
-                          type="text"
-                          value={element.envGroupHostName}
-                          onChange={handleChangeEnvHost(indexp, index)}
-                          name="envGroupHostName"
-                          className="form-control"
-                          placeholder="Env Host Name"
-                          onBlur={handleBlur}
-                        />
+                        <div className="form-group toolicon">
+                          <label htmlFor="envhostname" className="form-label">
+                            Environment Group Hostname
+                          </label>
+                          <input
+                            type="text"
+                            value={element.envGroupHostName}
+                            onChange={handleChangeEnvHost(indexp, index)}
+                            name="envGroupHostName"
+                            className="form-control"
+                            placeholder="Env Host Name"
+                            onBlur={handleBlur}
+                          />
+                          <span className="tool-icon">
+                            <CommonTooltip title={desc.envgroups} />
+                          </span>
+                        </div>
                       </div>
 
                       <div className="col-md-2">

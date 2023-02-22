@@ -4,9 +4,10 @@ import plus from "./Icon/plus.png";
 import "./Page.css";
 import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
-import { page3Schema, initialValuesPage3 } from "../schemas";
+import { page3Schema, initialValuesPage3, desc } from "../schemas";
 import { useNavigate } from "react-router-dom";
 import Progressbar from "./ProgressBar";
+import CommonTooltip from "./CommonTooltip";
 
 function Page3() {
   const progress = 75;
@@ -123,28 +124,39 @@ function Page3() {
       <form className="row g-3" onSubmit={handleSubmit}>
         <h2>Environments</h2>
         <div className="col-md-6">
-          <label htmlFor="env_name" className="form-label">
-            Environment Name
-          </label>
-          <input type="text" className="form-control" id="env_name"
-            name="env_name" autoComplete="off" placeholder="Environment Name"
-            value={values.env_name}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.env_name && touched.env_name ? <p className="form-error">{errors.env_name}</p> : null}
+          <div className="form-group toolicon">
+            <label htmlFor="env_name" className="form-label">
+              Environment Name
+            </label>
+            <input type="text" className="form-control" id="env_name"
+              name="env_name" autoComplete="off" placeholder="Environment Name"
+              value={values.env_name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <span className="tool-icon">
+              <CommonTooltip title={desc.environments_name} />
+            </span>
+            {errors.env_name && touched.env_name ? <p className="form-error">{errors.env_name}</p> : null}
+          </div>
         </div>
+
         <div className="col-md-6">
-          <label htmlFor="env_display_name" className="form-label">
-            Environment Display Name
-          </label>
-          <input type="text" className="form-control" id="env_display_name"
-            name="env_display_name" autoComplete="off" placeholder="Environment Name"
-            value={values.env_display_name}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.env_display_name && touched.env_display_name ? <p className="form-error">{errors.env_display_name}</p> : null}
+          <div className="form-group toolicon">
+            <label htmlFor="env_display_name" className="form-label">
+              Environment Display Name
+            </label>
+            <input type="text" className="form-control" id="env_display_name"
+              name="env_display_name" autoComplete="off" placeholder="Environment Name"
+              value={values.env_display_name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <span className="tool-icon">
+              <CommonTooltip title={desc.env_display_name} />
+            </span>
+            {errors.env_display_name && touched.env_display_name ? <p className="form-error">{errors.env_display_name}</p> : null}
+          </div>
         </div>
 
         {envGroupFields.map((data, indexp) => {
@@ -153,18 +165,23 @@ function Page3() {
             <div key={indexp}>
               <div className="row">
                 <div className="col-md-6">
-                  <label htmlFor="envgroupId" className="form-label">
-                    Environment Group Name
-                  </label>
-                  <input
-                    type="text"
-                    onChange={(evnt) => handleChangeEnvGroup(indexp, evnt)}
-                    value={EnvironmentGroup}
-                    name="EnvironmentGroup"
-                    className="form-control"
-                    placeholder="Env Group"
-                    onBlur={handleBlur}
-                  />
+                  <div className="form-group toolicon">
+                    <label htmlFor="envgroupId" className="form-label">
+                      Environment Group Name
+                    </label>
+                    <input
+                      type="text"
+                      onChange={(evnt) => handleChangeEnvGroup(indexp, evnt)}
+                      value={EnvironmentGroup}
+                      name="EnvironmentGroup"
+                      className="form-control"
+                      placeholder="Env Group"
+                      onBlur={handleBlur}
+                    />
+                    <span className="tool-icon">
+                      <CommonTooltip title={desc.envgroups} />
+                    </span>
+                  </div>
                 </div>
 
                 {EnvironmentGroupHost.map((element, index) => {
@@ -172,18 +189,23 @@ function Page3() {
                     <Fragment key={index}>
                       {index > 0 && (<div className="col-md-6"></div>)}
                       <div className="col-md-4">
-                        <label htmlFor="envhostname" className="form-label">
-                          Environment Group Hostname
-                        </label>
-                        <input
-                          type="text"
-                          value={element.envGroupHostName}
-                          onChange={handleChangeEnvHost(indexp, index)}
-                          name="envGroupHostName"
-                          className="form-control"
-                          placeholder="Env Host Name"
-                          onBlur={handleBlur}
-                        />
+                        <div className="form-group toolicon">
+                          <label htmlFor="envhostname" className="form-label">
+                            Environment Group Hostname
+                          </label>
+                          <input
+                            type="text"
+                            value={element.envGroupHostName}
+                            onChange={handleChangeEnvHost(indexp, index)}
+                            name="envGroupHostName"
+                            className="form-control"
+                            placeholder="Env Host Name"
+                            onBlur={handleBlur}
+                          />
+                          <span className="tool-icon">
+                            <CommonTooltip title={desc.envgroups} />
+                          </span>
+                        </div>
                       </div>
 
                       <div className="col-md-2">
@@ -241,7 +263,7 @@ function Page3() {
         })}
 
         <div className="col-md-10 mrg-top">
-        <Progressbar progress={progress} />
+          <Progressbar progress={progress} />
         </div>
         <div className="col-md-2">
           <NavLink to="/step1">

@@ -15,8 +15,8 @@ const App = () => {
       <h3 className="text-center text-heading" >Apigee X Provisioning Assistance Wizard</h3>
       <Router>
         <Routes>
-        <Route path="/" element={<BasicExample />}></Route>
-          <Route path="/step" element={<Page1 />}></Route>
+        {/* <Route path="/" element={<BasicExample />}></Route> */}
+          <Route path="/" element={<Page1 />}></Route>
           <Route path="/step1" element={<Page2 />}></Route>
           <Route path="/step2" element={<Page3 />}></Route>
           <Route path="/step3" element={<Page4 />}></Route>

@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import "./Page.css";
 import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
-import { page4Schema, initialValuesPage4 } from "../schemas";
+import { page4Schema, initialValuesPage4, desc } from "../schemas";
 import Progressbar from "./ProgressBar";
+import CommonTooltip from "./CommonTooltip";
 
 function Page4() {
   const progress = 100;
@@ -31,6 +32,7 @@ function Page4() {
     const step4Object = JSON.parse(localStorage.getItem("step4Object"));
     const finaljson = {};
     // Step 1//
+    finaljson.project_id = step1Object.project_id;
     finaljson.apigee_instance_region = step1Object.apigee_instance_region;
     finaljson.apigee_network_main_peering_range = step1Object.apigee_network_main_peering_range;
     finaljson.apigee_network_main_peering_range_prefix_length = step1Object.apigee_network_main_peering_range_prefix_length;
@@ -49,50 +51,55 @@ function Page4() {
     finaljson.envgroups = step2Object.envgroups;
     finaljson.environments = step2Object.environments;
 
-     // Step 3 //
-     finaljson.env_display_name  = step3Object.env_display_name;
-     finaljson.env_name  = step3Object.env_name;
-     finaljson.envgroups  = step3Object.envgroups;
-     finaljson.environments  = step3Object.environments;
+    // Step 3 //
+    finaljson.env_display_name = step3Object.env_display_name;
+    finaljson.env_name = step3Object.env_name;
+    finaljson.envgroups = step3Object.envgroups;
+    finaljson.environments = step3Object.environments;
 
-     // Step 4 //
-     finaljson.psc_ingress_network_name = step4Object.psc_ingress_network_name;
-     finaljson.use_development_hostname = step4Object.use_development_hostname;
-     finaljson.user_managed_certificate = step4Object.user_managed_certificate;
-     finaljson.user_managed_certificate_location = step4Object.user_managed_certificate_location;
-     
-    const jsonObject =    JSON.stringify(finaljson);
-    const blob = new Blob([jsonObject], {type: "text/plain"});
+    // Step 4 //
+    finaljson.psc_ingress_network_name = step4Object.psc_ingress_network_name;
+    finaljson.use_development_hostname = step4Object.use_development_hostname;
+    finaljson.user_managed_certificate = step4Object.user_managed_certificate;
+    finaljson.user_managed_certificate_location = step4Object.user_managed_certificate_location;
+
+    const jsonObject = JSON.stringify(finaljson);
+    const blob = new Blob([jsonObject], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.download = 'finaloutput.json';
     link.href = url;
     link.click();
-    console.log('finaljson',finaljson);
+    console.log('finaljson', finaljson);
   };
 
   return (
     <div className="container container-background">
       <form className="row g-3" onSubmit={handleSubmit}>
         <div className="col-md-6">
-          <label htmlFor="network" className="form-label">
-            Private Service Connect Network Name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="network"
-            name="psc_ingress_network_name"
-            autoComplete="off"
-            placeholder="Private Service Connect Network Name"
-            value={values.psc_ingress_network_name}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.psc_ingress_network_name &&
-          touched.psc_ingress_network_name ? (
-            <p className="form-error">{errors.psc_ingress_network_name}</p>
-          ) : null}
+          <div className="form-group toolicon">
+            <label htmlFor="network" className="form-label">
+              Private Service Connect Network Name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="network"
+              name="psc_ingress_network_name"
+              autoComplete="off"
+              placeholder="Private Service Connect Network Name"
+              value={values.psc_ingress_network_name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <span className="tool-icon">
+              <CommonTooltip title={desc.psc_ingress_network_name} />
+            </span>
+            {errors.psc_ingress_network_name &&
+              touched.psc_ingress_network_name ? (
+              <p className="form-error">{errors.psc_ingress_network_name}</p>
+            ) : null}
+          </div>
         </div>
 
         <div className="col-md-6 form-check" style={{ marginTop: "54px" }}>
@@ -113,7 +120,7 @@ function Page4() {
           </label>
         </div>
 
-        <h2>GSLB Certificate</h2>
+        <h4>Provide Custom Certificate for GSLB</h4>
         <div className="col-md-1"></div>
         <div className="col-md-5 form-check">
           <input
@@ -142,7 +149,7 @@ function Page4() {
         <div className="col-md-2"></div>
 
         <div className="col-md-10 mrg-top">
-        <Progressbar progress={progress} />
+          <Progressbar progress={progress} />
         </div>
         <div className="col-md-2">
           <NavLink to="/step2">
