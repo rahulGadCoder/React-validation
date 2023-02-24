@@ -12,19 +12,11 @@ import CommonTooltip from "./CommonTooltip";
 
 function Page2() {
   const progress = 50;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [envGroupFields, setEnvGroupFields] = useState([
-    {
-      EnvironmentGroup: "",
-      EnvironmentGroupHost: [
-        {
-          envGroupHostName: "",
-        },
-      ],
-    },
-  ]);
-
+  const defaultState = localStorage.getItem("step2Object") === null ? initialValuesPage2.envgroups :
+    JSON.parse(localStorage.getItem('step2Object')).envgroupsStored;
+  const [envGroupFields, setEnvGroupFields] = useState(defaultState);
 
   useEffect(() => {
     const step1Object = JSON.parse(localStorage.getItem('step1Object'));
@@ -36,17 +28,7 @@ function Page2() {
     initialValues: localStorage.getItem("step2Object") === null ? initialValuesPage2 : JSON.parse(localStorage.getItem('step2Object')),
     validationSchema: page2Schema,
     onSubmit: (values, action) => {
-
-      envGroupFields.forEach(element => {
-        element.hostname = [];
-        element.hostname = (element.EnvironmentGroupHost.map((el) => {
-          return el.envGroupHostName;
-        }))
-        element.name = element.EnvironmentGroup;
-        delete element.EnvironmentGroup;
-        delete element.EnvironmentGroupHost;
-      });
-      values.envgroups = envGroupFields;
+      values.envgroupsStored = envGroupFields;
       localStorage.setItem('step2Object', JSON.stringify(values));
       navigate("/step2");
     },

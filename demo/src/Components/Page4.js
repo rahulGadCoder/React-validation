@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 
 function Page4() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const progress = 100;
 
   const defaultState = localStorage.getItem("step4Object") === null ? initialValuesPage4.user_managed_certificate :
@@ -37,6 +37,20 @@ function Page4() {
       },
     });
 
+  // format envirnment group json //
+  function envGroupJson(array) {
+    array.map(element => {
+      element.hostname = [];
+      element.hostname = (element.EnvironmentGroupHost.map((el) => {
+        return el.envGroupHostName;
+      }))
+      element.name = element.EnvironmentGroup;
+      delete element.EnvironmentGroup;
+      delete element.EnvironmentGroupHost;
+    });
+    return array;
+  }
+
   const finalObj = () => {
     const step1Object = JSON.parse(localStorage.getItem("step1Object"));
     const step2Object = JSON.parse(localStorage.getItem("step2Object"));
@@ -60,14 +74,12 @@ function Page4() {
     finaljson.apigee_org_kms_keyring_name = step2Object.apigee_org_kms_keyring_name;
     finaljson.instance_key_rotation_period = step2Object.instance_key_rotation_period;
     finaljson.org_key_rotation_period = step2Object.org_key_rotation_period;
-    finaljson.envgroups = step2Object.envgroups;
-    finaljson.environments = step2Object.environments;
+    finaljson.environments = envGroupJson(step2Object.envgroupsStored);
 
     // Step 3 //
     finaljson.env_display_name = step3Object.env_display_name;
     finaljson.env_name = step3Object.env_name;
-    finaljson.envgroups = step3Object.envgroups;
-    finaljson.environments = step3Object.environments;
+    finaljson.environments1 = envGroupJson(step3Object.envgroupsStored);
 
     // Step 4 //
     finaljson.psc_ingress_network_name = step4Object.psc_ingress_network_name;
@@ -164,8 +176,8 @@ function Page4() {
                 </span>
               </div>
               <div className="col-md-10" style={{ padding: "15px" }}>
-                <span>Make sure to place the certificate with name <b>certificate.pem</b> and corresponding key file with name in 
-                 <b>private.key.pem</b>
+                <span>Make sure to place the certificate with name <b>certificate.pem</b> and corresponding key file with name in
+                  <b>private.key.pem</b>
                   in <b>./certs</b> directory
                 </span>
               </div>

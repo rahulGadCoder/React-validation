@@ -79,30 +79,33 @@ export const desc = {
   // Step 1 //
   project_id: "Project id (also used for the Apigee Organization).",
   billing_account: "Billing account id.",
-  project_parent: "Parent folder or organization in 'folders/folder_id' or 'organizations/org_id' format.",
+  project_parent:
+    "Parent folder or organization in 'folders/folder_id' or 'organizations/org_id' format.",
   project_create: false,
   apigee_network_name: "VPC name.",
   apigee_network_routing_mode: "VPC network routing mode",
   apigee_network_main_peering_range: "Peering CIDR range",
   apigee_network_main_peering_range_prefix_length: "Peering CIDR range",
   apigee_network_support_peering_range: "Peering CIDR range",
-  apigee_network_support_peering_range_prefix_length: "Support CIDR range of length /28 (required by Apigee for troubleshooting purposes)",
-  
+  apigee_network_support_peering_range_prefix_length:
+    "Support CIDR range of length /28 (required by Apigee for troubleshooting purposes)",
+
   // Step 2 //
-  apigee_org_kms_keyring_name : "Name of the KMS Key Ring for Apigee Organization DB.",
-  org_key_rotation_period : "Rotaton period for the organization DB encryption key.",
-  instance_key_rotation_period : "Rotaton period for the instance disk encryption key.",
-  envgroups : "Environment groups (NAME => [HOSTNAMES]).",
-  environments : "Environments.",
+  apigee_org_kms_keyring_name:
+    "Name of the KMS Key Ring for Apigee Organization DB.",
+  org_key_rotation_period:
+    "Rotaton period for the organization DB encryption key.",
+  instance_key_rotation_period:
+    "Rotaton period for the instance disk encryption key.",
+  envgroups: "Environment groups (NAME => [HOSTNAMES]).",
+  environments: "Environments.",
 
   // Step 3//
   environments_name: "Environments Name.",
-  env_display_name : "Env Display Name",
+  env_display_name: "Env Display Name",
 
   //Step 4 //
-  psc_ingress_network_name : "PSC ingress VPC name",
-  
-
+  psc_ingress_network_name: "PSC ingress VPC name",
 };
 
 //Page 2 //
@@ -121,15 +124,24 @@ export const page2Schema = Yup.object({
     .max(20)
     .required("Please enter apigee instance key ring rotation period"),
   envgroups: Yup.array().nullable(true),
-  environments: Yup.array().nullable(true),
+  envgroupsStored: Yup.array().nullable(true),
 });
 
 export const initialValuesPage2 = {
   apigee_org_kms_keyring_name: "apigee-x-org",
   org_key_rotation_period: "2592000s",
   instance_key_rotation_period: "2592000s",
-  envgroups: [],
-  environments: [],
+  envgroups: [
+    {
+      EnvironmentGroup: "",
+      EnvironmentGroupHost: [
+        {
+          envGroupHostName: "",
+        },
+      ],
+    },
+  ],
+  envgroupsStored: [],
 };
 
 //Page 3 //
@@ -144,14 +156,23 @@ export const page3Schema = Yup.object({
     .max(20)
     .required("Please enter apigee organization key ring rotation period"),
   envgroups: Yup.array().nullable(true),
-  environments: Yup.array().nullable(true),
+  envgroupsStored: Yup.array().nullable(true),
 });
 
 export const initialValuesPage3 = {
   env_name: "apigee-x-org",
   env_display_name: "2592000s",
-  envgroups: [],
-  environments: [],
+  envgroups: [
+    {
+      EnvironmentGroup: "",
+      EnvironmentGroupHost: [
+        {
+          envGroupHostName: "",
+        },
+      ],
+    },
+  ],
+  envgroupsStored: [],
 };
 
 // Page 4 //
@@ -172,13 +193,11 @@ export const initialValuesPage4 = {
   user_managed_certificate_location: "./certs/certificate.pem",
 };
 
-
-
-// "envgroups": [ 
+// "envgroups": [
 //   {
 //   name : "prod"
 //   hostname:[ "prod.api.intelliswift.com", "test.api.intelliswift.com"],
-  
+
 //   },
 //   {
 //     name : "prod"
