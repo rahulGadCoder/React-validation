@@ -38,7 +38,7 @@
   margin-top: 25px;
 }
 
-.tool-icon{
+.tool-icon {
   margin-top: -28px;
   margin-right: 10px;
 }
@@ -57,5 +57,9 @@ div.toolicon span {
   line-height: 1em;
   border-radius: 50%;
   cursor: pointer;
+}
+
+.certi-block {
+  padding: 30px;
 }
 

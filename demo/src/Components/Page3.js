@@ -13,29 +13,6 @@ function Page3() {
   const progress = 75;
   const navigate = useNavigate()
 
-  useEffect(() => {
-    const step2Object = JSON.parse(localStorage.getItem('step2Object'));
-    // console.log('step2Object', step2Object);
-  }, [])
-
-
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues: initialValuesPage3,
-    validationSchema: page3Schema,
-
-    onSubmit: (values, action) => {
-      const { envgroups, environments } = values;
-      envGroupFields.forEach(element => {
-        envgroups.push(element.EnvironmentGroup);
-        element.EnvironmentGroupHost.forEach(element => {
-          environments.push(element.envGroupHostName);
-        });
-      });
-      localStorage.setItem('step3Object', JSON.stringify(values));
-      navigate("/step3");
-    },
-  })
-
   const [envGroupFields, setEnvGroupFields] = useState([
     {
       EnvironmentGroup: "",
@@ -46,6 +23,35 @@ function Page3() {
       ],
     },
   ]);
+
+  useEffect(() => {
+    const step2Object = JSON.parse(localStorage.getItem('step2Object'));
+    const step4Object = JSON.parse(localStorage.getItem('step4Object'));
+
+    console.log('step4Object', step4Object);
+  }, [])
+
+
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+    initialValues: localStorage.getItem("step3Object") === null ? initialValuesPage3 : JSON.parse(localStorage.getItem('step3Object')),
+    validationSchema: page3Schema,
+
+    onSubmit: (values, action) => {
+      envGroupFields.forEach(element => {
+        element.hostname = [];
+        element.hostname = (element.EnvironmentGroupHost.map((el) => {
+          return el.envGroupHostName;
+        }))
+        element.name = element.EnvironmentGroup;
+        delete element.EnvironmentGroup;
+        delete element.EnvironmentGroupHost;
+      });
+      values.envgroups = envGroupFields;
+      localStorage.setItem('step3Object', JSON.stringify(values));
+      navigate("/step3");
+    },
+  })
+
 
   const addInputField = (e) => {
     e.preventDefault();

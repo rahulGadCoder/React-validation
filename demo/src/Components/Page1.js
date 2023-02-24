@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Page.css";
 import { useFormik } from "formik";
@@ -10,9 +10,13 @@ const Page1 = () => {
   const progress = 25;
   const navigate = useNavigate();
 
+  useEffect(() => {
+
+  }, [])
+
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
-      initialValues: initialValuesPage1,
+      initialValues: localStorage.getItem("step1Object") === null ? initialValuesPage1 : JSON.parse(localStorage.getItem('step1Object')),
       validationSchema: page1Schema,
 
       onSubmit: (value) => {
@@ -100,6 +104,7 @@ const Page1 = () => {
             className="form-check-input"
             type="checkbox"
             name="project_create"
+            checked={values.project_create}
             value={values.project_create}
             onChange={handleChange}
             onBlur={handleBlur}

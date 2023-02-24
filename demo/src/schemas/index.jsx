@@ -110,15 +110,15 @@ export const desc = {
 export const page2Schema = Yup.object({
   apigee_org_kms_keyring_name: Yup.string()
     .min(4)
-    .max(12)
+    .max(20)
     .required("Please enter apigee organization key ring name"),
   org_key_rotation_period: Yup.string()
     .min(4)
-    .max(12)
+    .max(20)
     .required("Please enter apigee organization key ring rotation period"),
   instance_key_rotation_period: Yup.string()
     .min(4)
-    .max(12)
+    .max(20)
     .required("Please enter apigee instance key ring rotation period"),
   envgroups: Yup.array().nullable(true),
   environments: Yup.array().nullable(true),
@@ -137,11 +137,11 @@ export const initialValuesPage2 = {
 export const page3Schema = Yup.object({
   env_name: Yup.string()
     .min(4)
-    .max(12)
+    .max(20)
     .required("Please enter apigee organization key ring name"),
   env_display_name: Yup.string()
     .min(4)
-    .max(12)
+    .max(20)
     .required("Please enter apigee organization key ring rotation period"),
   envgroups: Yup.array().nullable(true),
   environments: Yup.array().nullable(true),
@@ -171,3 +171,17 @@ export const initialValuesPage4 = {
   use_development_hostname: false,
   user_managed_certificate_location: "./certs/certificate.pem",
 };
+
+
+
+// "envgroups": [ 
+//   {
+//   name : "prod"
+//   hostname:[ "prod.api.intelliswift.com", "test.api.intelliswift.com"],
+  
+//   },
+//   {
+//     name : "prod"
+//     hostname:[ "prod.api.intelliswift.com", "test.api.intelliswift.com"]
+//   }
+//  ],

@@ -1,25 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Page.css";
 import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
 import { page4Schema, initialValuesPage4, desc } from "../schemas";
 import Progressbar from "./ProgressBar";
 import CommonTooltip from "./CommonTooltip";
+import { useNavigate } from "react-router-dom";
+
 
 function Page4() {
+  const navigate = useNavigate()
   const progress = 100;
+
+  const defaultState = localStorage.getItem("step4Object") === null ? initialValuesPage4.user_managed_certificate :
+    JSON.parse(localStorage.getItem('step4Object')).user_managed_certificate;
+
+  const [custCertificate, setCustCertificate] = useState(defaultState)
+
   useEffect(() => {
     const step4Object = JSON.parse(localStorage.getItem("step4Object"));
-
     console.log('step4Object', step4Object);
   }, []);
 
+  const onPevious = () => {
+    localStorage.setItem("step4Object", JSON.stringify(values));
+    navigate("/step2");
+  }
+
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
-      initialValues: initialValuesPage4,
+      initialValues: localStorage.getItem("step4Object") === null ? initialValuesPage4 : JSON.parse(localStorage.getItem('step4Object')),
       validationSchema: page4Schema,
       onSubmit: (values, action) => {
-        console.log("values", values);
         localStorage.setItem("step4Object", JSON.stringify(values));
         finalObj();
       },
@@ -62,7 +74,7 @@ function Page4() {
     finaljson.use_development_hostname = step4Object.use_development_hostname;
     finaljson.user_managed_certificate = step4Object.user_managed_certificate;
     finaljson.user_managed_certificate_location = step4Object.user_managed_certificate_location;
-
+    // localStorage.clear();
     const jsonObject = JSON.stringify(finaljson);
     const blob = new Blob([jsonObject], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
@@ -108,6 +120,7 @@ function Page4() {
             type="checkbox"
             id="use_development_hostname"
             name="use_development_hostname"
+            checked={values.use_development_hostname}
             value={values.use_development_hostname}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -122,14 +135,16 @@ function Page4() {
 
         <h4>Provide Custom Certificate for GSLB</h4>
         <div className="col-md-1"></div>
-        <div className="col-md-5 form-check">
+        <div className="col-md-5 form-check" style={{ marginTop: '50px' }}>
           <input
             className="form-check-input"
             type="checkbox"
             id="user_managed_certificate"
             name="user_managed_certificate"
+            checked={values.user_managed_certificate}
             value={values.user_managed_certificate}
             onChange={handleChange}
+            onClick={() => setCustCertificate(!values.user_managed_certificate)}
             onBlur={handleBlur}
           />
           <label
@@ -140,23 +155,31 @@ function Page4() {
           </label>
         </div>
 
-        <div className="col-md-4">
-          <label className="form-label">SSL Certificate Location</label>
-          <div className="mb-3">
-            <input className="form-control" type="file" id="formFile" />
+        {custCertificate && (<div className="col-md-6" >
+          <div className="card">
+            <div className="row">
+              <div className="col-md-2 certi-block">
+                <span style={{ marginLeft: "10px" }}>
+                  <i className="fa fa-info-circle" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div className="col-md-10" style={{ padding: "15px" }}>
+                <span>Make sure to place the certificate with name <b>certificate.pem</b> and corresponding key file with name in 
+                 <b>private.key.pem</b>
+                  in <b>./certs</b> directory
+                </span>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="col-md-2"></div>
+        </div>)}
 
         <div className="col-md-10 mrg-top">
           <Progressbar progress={progress} />
         </div>
         <div className="col-md-2">
-          <NavLink to="/step2">
-            <button type="submit" className="btn btn-primary">
-              Previous
-            </button>
-          </NavLink>
+          <button onClick={onPevious} type="button" className="btn btn-primary">
+            Previous
+          </button>
           <button type="submit" className="btn btn-next btn-primary">
             view
           </button>

@@ -12,32 +12,7 @@ import CommonTooltip from "./CommonTooltip";
 
 function Page2() {
   const progress = 50;
-
   const navigate = useNavigate()
-
-
-  useEffect(() => {
-    const step1Object = JSON.parse(localStorage.getItem('step1Object'));
-    console.log('step1Object', step1Object);
-
-  }, [])
-
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues: initialValuesPage2,
-    validationSchema: page2Schema,
-    onSubmit: (values, action) => {
-
-      const { envgroups, environments } = values;
-      envGroupFields.forEach(element => {
-        envgroups.push(element.EnvironmentGroup);
-        element.EnvironmentGroupHost.forEach(element => {
-          environments.push(element.envGroupHostName);
-        });
-      });
-      localStorage.setItem('step2Object', JSON.stringify(values));
-      navigate("/step2");
-    },
-  })
 
   const [envGroupFields, setEnvGroupFields] = useState([
     {
@@ -49,6 +24,34 @@ function Page2() {
       ],
     },
   ]);
+
+
+  useEffect(() => {
+    const step1Object = JSON.parse(localStorage.getItem('step1Object'));
+    console.log('step1Object', step1Object);
+
+  }, [])
+
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+    initialValues: localStorage.getItem("step2Object") === null ? initialValuesPage2 : JSON.parse(localStorage.getItem('step2Object')),
+    validationSchema: page2Schema,
+    onSubmit: (values, action) => {
+
+      envGroupFields.forEach(element => {
+        element.hostname = [];
+        element.hostname = (element.EnvironmentGroupHost.map((el) => {
+          return el.envGroupHostName;
+        }))
+        element.name = element.EnvironmentGroup;
+        delete element.EnvironmentGroup;
+        delete element.EnvironmentGroupHost;
+      });
+      values.envgroups = envGroupFields;
+      localStorage.setItem('step2Object', JSON.stringify(values));
+      navigate("/step2");
+    },
+  })
+
 
   const addInputField = (e) => {
     e.preventDefault();
