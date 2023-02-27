@@ -16,6 +16,7 @@ function Page3() {
     localStorage.getItem("step3Object") === null
       ? initialValuesPage3.envgroups
       : JSON.parse(localStorage.getItem("step3Object")).envgroupsStored;
+
   const [envGroupFields, setEnvGroupFields] = useState(defaultState);
   const [groupHostName, setGroupHostName] = useState([]);
   const [selectedHostValue, setSelectedHostValue] = useState("");
@@ -43,7 +44,7 @@ function Page3() {
     navigate("/step1");
   };
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+  const { values, handleBlur, handleSubmit } =
     useFormik({
       initialValues:
         localStorage.getItem("step3Object") === null
@@ -64,6 +65,8 @@ function Page3() {
       ...envGroupFields,
       {
         EnvironmentGroup: "",
+        env_name: "",
+        env_display_name: "",
         EnvironmentGroupHost: [{ envGroupHostName: "" }],
       },
     ]);
@@ -135,68 +138,67 @@ function Page3() {
       <form className="row g-3" onSubmit={handleSubmit}>
         <div className="card card-body">
           <h2>Environments</h2>
-
-          <div className="row mrg-bottom-10">
-            <div className="col-md-6">
-              <div className="form-group toolicon">
-                <label htmlFor="env_name" className="form-label">
-                  Environment Name
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="env_name"
-                  name="env_name"
-                  autoComplete="off"
-                  placeholder="Environment Name"
-                  value={values.env_name}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-                <span className="tool-icon">
-                  <CommonTooltip title={desc.environments_name} />
-                </span>
-                {errors.env_name && touched.env_name ? (
-                  <p className="form-error">{errors.env_name}</p>
-                ) : null}
-              </div>
-            </div>
-
-            <div className="col-md-6">
-              <div className="form-group toolicon">
-                <label htmlFor="env_display_name" className="form-label">
-                  Environment Display Name
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="env_display_name"
-                  name="env_display_name"
-                  autoComplete="off"
-                  placeholder="Environment Name"
-                  value={values.env_display_name}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-                <span className="tool-icon">
-                  <CommonTooltip title={desc.env_display_name} />
-                </span>
-                {errors.env_display_name && touched.env_display_name ? (
-                  <p className="form-error">{errors.env_display_name}</p>
-                ) : null}
-              </div>
-            </div>
-          </div>
-
           {envGroupFields.map((data, indexp) => {
-            const { EnvironmentGroup, EnvironmentGroupHost } = data;
+            const { EnvironmentGroup, EnvironmentGroupHost, env_name, env_display_name } = data;
             return (
               <div key={indexp}>
+                <div className="row mrg-bottom-10 mrg-top-10">
+                  <div className="col-md-6">
+                    <div className="form-group toolicon">
+                      <label htmlFor="env_name" className="form-label">
+                        Environment Name
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="env_name"
+                        name="env_name"
+                        autoComplete="off"
+                        placeholder="Environment Name"
+                        value={env_name}
+                        onChange={(evnt) => handleChangeEnvGroup(indexp, evnt)}
+                        onBlur={handleBlur}
+                      />
+                      <span className="tool-icon">
+                        <CommonTooltip title={desc.environments_name} />
+                      </span>
+                      {/* {errors.env_name && touched.env_name ? (
+                        <p className="form-error">{errors.env_name}</p>
+                      ) : null} */}
+                    </div>
+                  </div>
+
+                  <div className="col-md-6">
+                    <div className="form-group toolicon">
+                      <label htmlFor="env_display_name" className="form-label">
+                        Environment Display Name
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="env_display_name"
+                        name="env_display_name"
+                        autoComplete="off"
+                        placeholder="Environment Name"
+                        value={env_display_name}
+                        onChange={(evnt) => handleChangeEnvGroup(indexp, evnt)}
+                        onBlur={handleBlur}
+                      />
+                      <span className="tool-icon">
+                        <CommonTooltip title={desc.env_display_name} />
+                      </span>
+                      {/* {errors.env_display_name && touched.env_display_name ? (
+                        <p className="form-error">{errors.env_display_name}</p>
+                      ) : null} */}
+                    </div>
+                  </div>
+                </div>
+
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group toolicon">
                       <label htmlFor="envgroupId" className="form-label">
-                        Environment Group Name
+                        Environment Description
                       </label>
                       <input
                         type="text"
@@ -222,7 +224,7 @@ function Page3() {
                             htmlFor="envGroupHostName"
                             className="form-label"
                           >
-                            Environment Host
+                            Environment Group
                           </label>
                           <select
                             id="envGroupHostName"
@@ -298,25 +300,27 @@ function Page3() {
                     )}
                   </div>
                 </div>
+
               </div>
             );
           })}
         </div>
+        <div className="row">
+          <div className="col-md-10 mrg-top">
+            <Progressbar progress={progress} />
+          </div>
+          <div className="col-md-2 mrg-top-10">
+            <button onClick={onPevious} type="button" className="btn btn-primary">
+              Previous
+            </button>
+            <button type="submit" className="btn btn-next btn-primary">
+              Next
+            </button>
+          </div>
+        </div>
       </form>
 
-      <div className="row">
-        <div className="col-md-10 mrg-top">
-          <Progressbar progress={progress} />
-        </div>
-        <div className="col-md-2 mrg-top-10">
-          <button onClick={onPevious} type="button" className="btn btn-primary">
-            Previous
-          </button>
-          <button type="submit" className="btn btn-next btn-primary">
-            Next
-          </button>
-        </div>
-      </div>
+
     </div>
   );
 }

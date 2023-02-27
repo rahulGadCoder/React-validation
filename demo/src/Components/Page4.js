@@ -17,7 +17,7 @@ function Page4() {
   const [custCertificate, setCustCertificate] = useState(defaultState)
 
   useEffect(() => {
-    
+
   }, []);
 
   const onPevious = () => {
@@ -36,16 +36,31 @@ function Page4() {
     });
 
   // format envirnment group json //
-  function envGroupJson(array) {
-    array.forEach(element => {
-      element.hostname = [];
-      element.hostname = (element.EnvironmentGroupHost.map((el) => {
-        return el.envGroupHostName;
-      }))
-      element.name = element.EnvironmentGroup;
-      delete element.EnvironmentGroup;
-      delete element.EnvironmentGroupHost;
-    });
+  function envGroupJson(array, step) {
+    if (step === 'step2') {
+      array.forEach(element => {
+        element.hostname = [];
+        element.hostname = (element.EnvironmentGroupHost.map((el) => {
+          return el.envGroupHostName;
+        }))
+        element.name = element.EnvironmentGroup;
+        delete element.EnvironmentGroup;
+        delete element.EnvironmentGroupHost;
+      });
+    } else {
+      array.forEach(element => {
+        element.hostname = [];
+        element.hostname = (element.EnvironmentGroupHost.map((el) => {
+          return el.envGroupHostName;
+        }))
+        element.description = element.EnvironmentGroup;
+        element.name = element.env_name;
+        delete element.env_name;        ;
+        delete element.EnvironmentGroup;
+        delete element.EnvironmentGroupHost;
+      });
+    }
+
     return array;
   }
 
@@ -72,12 +87,10 @@ function Page4() {
     finaljson.apigee_org_kms_keyring_name = step2Object.apigee_org_kms_keyring_name;
     finaljson.instance_key_rotation_period = step2Object.instance_key_rotation_period;
     finaljson.org_key_rotation_period = step2Object.org_key_rotation_period;
-    finaljson.envgroups = envGroupJson(step2Object.envgroupsStored);
+    finaljson.envgroups = envGroupJson(step2Object.envgroupsStored, 'step2');
 
     // Step 3 //
-    finaljson.env_display_name = step3Object.env_display_name;
-    finaljson.env_name = step3Object.env_name;
-    finaljson.environments = envGroupJson(step3Object.envgroupsStored);
+    finaljson.environments = envGroupJson(step3Object.envgroupsStored, 'step3');
 
     // Step 4 //
     finaljson.psc_ingress_network_name = step4Object.psc_ingress_network_name;

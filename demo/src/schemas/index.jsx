@@ -147,24 +147,27 @@ export const initialValuesPage2 = {
 //Page 3 //
 
 export const page3Schema = Yup.object({
-  env_name: Yup.string()
-    .min(4)
-    .max(20)
-    .required("Please enter apigee organization key ring name"),
-  env_display_name: Yup.string()
-    .min(4)
-    .max(20)
-    .required("Please enter apigee organization key ring rotation period"),
+  // env_name: Yup.string()
+  //   .min(4)
+  //   .max(20)
+  //   .required("Please enter apigee organization key ring name"),
+  // env_display_name: Yup.string()
+  //   .min(4)
+  //   .max(20)
+  //   .required("Please enter apigee organization key ring rotation period"),
+
+  env_name: Yup.string(),
+  env_display_name: Yup.string(),
   envgroups: Yup.array().nullable(true),
   envgroupsStored: Yup.array().nullable(true),
 });
 
 export const initialValuesPage3 = {
-  env_name: "apigee-x-org",
-  env_display_name: "2592000s",
   envgroups: [
     {
       EnvironmentGroup: "",
+      env_name: "apigee-x-org",
+      env_display_name: "2592000s",
       EnvironmentGroupHost: [
         {
           envGroupHostName: "",
