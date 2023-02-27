@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./Page.css";
-import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
 import { page4Schema, initialValuesPage4, desc } from "../schemas";
 import Progressbar from "./ProgressBar";
@@ -18,8 +17,7 @@ function Page4() {
   const [custCertificate, setCustCertificate] = useState(defaultState)
 
   useEffect(() => {
-    const step4Object = JSON.parse(localStorage.getItem("step4Object"));
-    console.log('step4Object', step4Object);
+    
   }, []);
 
   const onPevious = () => {
@@ -39,7 +37,7 @@ function Page4() {
 
   // format envirnment group json //
   function envGroupJson(array) {
-    array.map(element => {
+    array.forEach(element => {
       element.hostname = [];
       element.hostname = (element.EnvironmentGroupHost.map((el) => {
         return el.envGroupHostName;
@@ -74,19 +72,18 @@ function Page4() {
     finaljson.apigee_org_kms_keyring_name = step2Object.apigee_org_kms_keyring_name;
     finaljson.instance_key_rotation_period = step2Object.instance_key_rotation_period;
     finaljson.org_key_rotation_period = step2Object.org_key_rotation_period;
-    finaljson.environments = envGroupJson(step2Object.envgroupsStored);
+    finaljson.envgroups = envGroupJson(step2Object.envgroupsStored);
 
     // Step 3 //
     finaljson.env_display_name = step3Object.env_display_name;
     finaljson.env_name = step3Object.env_name;
-    finaljson.environments1 = envGroupJson(step3Object.envgroupsStored);
+    finaljson.environments = envGroupJson(step3Object.envgroupsStored);
 
     // Step 4 //
     finaljson.psc_ingress_network_name = step4Object.psc_ingress_network_name;
     finaljson.use_development_hostname = step4Object.use_development_hostname;
     finaljson.user_managed_certificate = step4Object.user_managed_certificate;
     finaljson.user_managed_certificate_location = step4Object.user_managed_certificate_location;
-    // localStorage.clear();
     const jsonObject = JSON.stringify(finaljson);
     const blob = new Blob([jsonObject], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
@@ -94,6 +91,7 @@ function Page4() {
     link.download = 'finaloutput.json';
     link.href = url;
     link.click();
+    localStorage.clear();
     console.log('finaljson', finaljson);
   };
 
@@ -193,7 +191,7 @@ function Page4() {
             Previous
           </button>
           <button type="submit" className="btn btn-next btn-primary">
-            view
+            Review
           </button>
         </div>
       </form>

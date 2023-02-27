@@ -2,7 +2,6 @@ import React, { useState, useEffect, Fragment } from "react";
 import minus from "./Icon/minus.png";
 import plus from "./Icon/plus.png";
 import "./Page.css";
-import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
 import { page3Schema, initialValuesPage3, desc } from "../schemas";
 import { useNavigate } from "react-router-dom";
@@ -16,13 +15,31 @@ function Page3() {
   const defaultState = localStorage.getItem("step3Object") === null ? initialValuesPage3.envgroups :
     JSON.parse(localStorage.getItem('step3Object')).envgroupsStored;
   const [envGroupFields, setEnvGroupFields] = useState(defaultState);
+  const [groupHostName, setGroupHostName] = useState([]);
+  const [selectedHostValue, setSelectedHostValue] = useState('');
 
   useEffect(() => {
-    const step2Object = JSON.parse(localStorage.getItem('step2Object'));
-    const step4Object = JSON.parse(localStorage.getItem('step4Object'));
-    console.log('step4Object', step4Object);
-  }, [])
+    if (localStorage.getItem("step2Object") != null) {
+      const hostDropDown = JSON.parse(localStorage.getItem('step2Object')).envgroupsStored;
+      hostDropDown.forEach((element, index) => {
+        element.label = "";
+        element.name = "";
+        element.name = element.EnvironmentGroup;
+        element.label = element.EnvironmentGroup;
+        initialValuesPage3.envgroups[0].EnvironmentGroupHost[0].envGroupHostName = hostDropDown[0].EnvironmentGroup;
+      });
+      setGroupHostName(hostDropDown);
+    }
 
+
+
+  }, []);
+
+  const onPevious = () => {
+    values.envgroupsStored = envGroupFields;
+    localStorage.setItem("step3Object", JSON.stringify(values));
+    navigate("/step1");
+  }
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: localStorage.getItem("step3Object") === null ? initialValuesPage3 : JSON.parse(localStorage.getItem('step3Object')),
@@ -62,6 +79,7 @@ function Page3() {
   // Host Operations //
   const handleChangeEnvHost = (indexp, indexchild) => {
     return (e) => {
+      setSelectedHostValue(e.target.value);
       setEnvGroupFields((prevState) => {
         return prevState.map((element, i) => {
           let newState = {};
@@ -178,23 +196,28 @@ function Page3() {
                     <Fragment key={index}>
                       {index > 0 && (<div className="col-md-6"></div>)}
                       <div className="col-md-4">
-                        <div className="form-group toolicon">
-                          <label htmlFor="envhostname" className="form-label">
-                            Environment Group Hostname
-                          </label>
-                          <input
-                            type="text"
-                            value={element.envGroupHostName}
-                            onChange={handleChangeEnvHost(indexp, index)}
-                            name="envGroupHostName"
-                            className="form-control"
-                            placeholder="Env Host Name"
-                            onBlur={handleBlur}
-                          />
-                          <span className="tool-icon">
-                            <CommonTooltip title={desc.envgroups} />
-                          </span>
-                        </div>
+                        <label htmlFor="envGroupHostName" className="form-label">
+                          Environment Host
+                        </label>
+                        <select
+                          id="envGroupHostName"
+                          value={element.envGroupHostName}
+                          onChange={handleChangeEnvHost(indexp, index)}
+                          name="envGroupHostName"
+                          className="form-select"
+                        >
+                          {groupHostName.map((element) => {
+                            const { label, value } = element;
+                            return (
+                              <option value={value}
+                                key={label}
+                                disabled={+index && selectedHostValue === label}
+                              >
+                                {label}
+                              </option>
+                            );
+                          })}
+                        </select>
                       </div>
 
                       <div className="col-md-2">
@@ -255,9 +278,7 @@ function Page3() {
           <Progressbar progress={progress} />
         </div>
         <div className="col-md-2">
-          <NavLink to="/step1">
-            <button type="submit" className="btn btn-primary">Previous</button>
-          </NavLink>
+          <button onClick={onPevious} type="button" className="btn btn-primary">Previous</button>
           <button type="submit" className="btn btn-next btn-primary">Next</button>
         </div>
       </form>

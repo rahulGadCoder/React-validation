@@ -2,7 +2,6 @@ import React, { useState, useEffect, Fragment } from "react";
 import plus from "./Icon/plus.png";
 import minus from "./Icon/minus.png";
 import "./Page.css";
-import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { page2Schema, initialValuesPage2, desc } from "../schemas";
@@ -19,10 +18,13 @@ function Page2() {
   const [envGroupFields, setEnvGroupFields] = useState(defaultState);
 
   useEffect(() => {
-    const step1Object = JSON.parse(localStorage.getItem('step1Object'));
-    console.log('step1Object', step1Object);
 
   }, [])
+
+  const onPevious = () => {
+    localStorage.setItem("step2Object", JSON.stringify(values));
+    navigate("/");
+  }
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: localStorage.getItem("step2Object") === null ? initialValuesPage2 : JSON.parse(localStorage.getItem('step2Object')),
@@ -273,12 +275,9 @@ function Page2() {
           <Progressbar progress={progress} />
         </div>
         <div className="col-md-2">
-          <NavLink to="/">
-            <button type="submit" className="btn btn-primary">
-              Previous
-            </button>
-          </NavLink>
-
+          <button onClick={onPevious} type="button" className="btn btn-primary">
+            Previous
+          </button>
           <button type="submit" className="btn btn-next btn-primary"> Next </button>
         </div>
       </form>

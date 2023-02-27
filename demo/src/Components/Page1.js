@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Page.css";
 import { useFormik } from "formik";
@@ -9,11 +9,6 @@ import CommonTooltip from "./CommonTooltip";
 const Page1 = () => {
   const progress = 25;
   const navigate = useNavigate();
-
-  useEffect(() => {
-
-  }, [])
-
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: localStorage.getItem("step1Object") === null ? initialValuesPage1 : JSON.parse(localStorage.getItem('step1Object')),
@@ -122,9 +117,7 @@ const Page1 = () => {
           <select
             id="region"
             name="apigee_instance_region"
-            onChange={(value) => {
-              handleChange(value);
-            }}
+            onChange={handleChange}
             value={values.apigee_instance_region}
             className="form-select"
           >

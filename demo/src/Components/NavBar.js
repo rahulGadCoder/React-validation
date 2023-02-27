@@ -5,7 +5,7 @@ const NavBar = () => {
     <div>
       <nav className="navbar bg-dark fixed-top" data-bs-theme="dark">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">
+          <a className="navbar-brand" href="/" style={{color: 'white'}}>
             Home
           </a>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">

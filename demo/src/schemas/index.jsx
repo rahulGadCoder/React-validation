@@ -39,7 +39,7 @@ export const initialValuesPage1 = {
   billing_account: "",
   project_parent: "",
   project_create: false,
-  apigee_instance_region: "",
+  apigee_instance_region: "us-central1",
   apigee_network_name: "apigee-network",
   apigee_network_routing_mode: "GLOBAL",
   apigee_network_main_peering_range: "10.0.0.0",
