@@ -168,7 +168,7 @@ function Page3() {
                     </div>
                   </div>
 
-                  <div className="col-md-6">
+                  <div className="col-md-5">
                     <div className="form-group toolicon">
                       <label htmlFor="env_display_name" className="form-label">
                         Environment Display Name
@@ -192,6 +192,7 @@ function Page3() {
                       ) : null} */}
                     </div>
                   </div>
+                  <div className="col-md-1"></div>
                 </div>
 
                 <div className="row">

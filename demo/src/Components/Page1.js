@@ -13,7 +13,6 @@ const Page1 = () => {
     useFormik({
       initialValues: localStorage.getItem("step1Object") === null ? initialValuesPage1 : JSON.parse(localStorage.getItem('step1Object')),
       validationSchema: page1Schema,
-
       onSubmit: (value) => {
         localStorage.setItem("step1Object", JSON.stringify(value));
         navigate("/step1");
