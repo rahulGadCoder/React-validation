@@ -191,7 +191,7 @@ function Page4() {
             Previous
           </button>
           <button type="submit" className="btn btn-next btn-primary">
-            Review
+            View
           </button>
         </div>
       </form>
