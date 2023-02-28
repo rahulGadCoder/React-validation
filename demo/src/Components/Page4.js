@@ -14,11 +14,11 @@ function Page4() {
     localStorage.getItem("step4Object") === null
       ? initialValuesPage4.user_managed_certificate
       : JSON.parse(localStorage.getItem("step4Object"))
-          .user_managed_certificate;
+        .user_managed_certificate;
 
   const [custCertificate, setCustCertificate] = useState(defaultState);
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const onPevious = () => {
     localStorage.setItem("step4Object", JSON.stringify(values));
@@ -117,7 +117,6 @@ function Page4() {
     link.download = "finaloutput.json";
     link.href = url;
     link.click();
-    console.log("finaljson", finaljson);
   };
 
   return (
@@ -143,7 +142,7 @@ function Page4() {
               <CommonTooltip title={desc.psc_ingress_network_name} />
             </span>
             {errors.psc_ingress_network_name &&
-            touched.psc_ingress_network_name ? (
+              touched.psc_ingress_network_name ? (
               <p className="form-error">{errors.psc_ingress_network_name}</p>
             ) : null}
           </div>

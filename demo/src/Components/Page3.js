@@ -67,7 +67,9 @@ function Page3() {
         EnvironmentGroup: "",
         env_name: "",
         env_display_name: "",
-        EnvironmentGroupHost: [{ envGroupHostName: "" }],
+        EnvironmentGroupHost: [
+          { envGroupHostName: groupHostName ? groupHostName[0].EnvironmentGroup : "" }
+        ],
       },
     ]);
   };
