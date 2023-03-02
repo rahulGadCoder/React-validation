@@ -6,7 +6,7 @@ const Progressbar = (props) => {
     return (
         <div>
             <div className="progress">
-                <div className="progress-bar" role="progressbar" aria-label="Basic example" style={{ width: `${progress}%` }} aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{progress}%</div>
+                <div className="progress-bar" role="progressbar" aria-label="Basic example" style={{ width: `${progress}%` }} aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
 
         </div>
