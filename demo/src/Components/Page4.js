@@ -83,11 +83,11 @@ function Page4() {
   function formatEnvs(envsUnformatted){
       let envs = {};
       envsUnformatted.forEach(element => {
-        envs[element.env_name] = {}
-        envs[element.env_name].description = element.EnvironmentGroup;
-        envs[element.env_name].display_name = element.env_display_name;
-        envs[element.env_name].envgroups = element.EnvironmentGroupHost.map((el) => {
-            return el.envGroupHostName;
+        envs[element.EnvironmentName] = {}
+        envs[element.EnvironmentName].description = element.EnvironmentDescription;
+        envs[element.EnvironmentName].display_name = element.EnvironmentDisplayName;
+        envs[element.EnvironmentName].envgroups = element.EnvironmentGroups.map((el) => {
+            return el.EnvironmentGroupName;
           });
       });
       return envs;
@@ -126,7 +126,7 @@ function Page4() {
     finaljson.envgroups = formatEnvGroups(step2Object.envgroupsStored);
 
     // Step 3 //
-    finaljson.environments = formatEnvs(step3Object.envgroupsStored);
+    finaljson.environments = formatEnvs(step3Object.envsStored);
 
     // Step 4 //
     finaljson.psc_ingress_network_name = step4Object.psc_ingress_network_name;
@@ -136,6 +136,7 @@ function Page4() {
       step4Object.user_managed_certificate_location;
     finaljson.user_managed_certificate_key_location =
       step4Object.user_managed_certificate_key_location;
+    finaljson.apigee_run_version = "v" + Math.floor(Math.random()*(999-100+1)+100);
     const jsonObject = JSON.stringify(finaljson);
     const blob = new Blob([jsonObject], { type: "text/plain" });
     const url = URL.createObjectURL(blob);

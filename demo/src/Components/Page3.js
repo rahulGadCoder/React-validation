@@ -14,12 +14,12 @@ function Page3() {
 
   const defaultState =
     localStorage.getItem("step3Object") === null
-      ? initialValuesPage3.envgroups
-      : JSON.parse(localStorage.getItem("step3Object")).envgroupsStored;
+      ? initialValuesPage3.envs
+      : JSON.parse(localStorage.getItem("step3Object")).envsStored;
 
-  const [envGroupFields, setEnvGroupFields] = useState(defaultState);
-  const [groupHostName, setGroupHostName] = useState([]);
-  const [selectedHostValue, setSelectedHostValue] = useState("");
+  const [envFields, setEnvFields] = useState(defaultState);
+  const [envGroupName, setEnvGroupName] = useState([]);
+  const [selectedGroupName, setSelectedGroupName] = useState("");
 
   useEffect(() => {
     if (localStorage.getItem("step2Object") != null) {
@@ -31,15 +31,15 @@ function Page3() {
         element.name = "";
         element.name = element.EnvironmentGroup;
         element.label = element.EnvironmentGroup;
-        initialValuesPage3.envgroups[0].EnvironmentGroupHost[0].envGroupHostName =
+        initialValuesPage3.envs[0].EnvironmentGroups[0].EnvironmentGroupName =
           hostDropDown[0].EnvironmentGroup;
       });
-      setGroupHostName(hostDropDown);
+      setEnvGroupName(hostDropDown);
     }
   }, []);
 
   const onPevious = () => {
-    values.envgroupsStored = envGroupFields;
+    values.envsStored = envFields;
     localStorage.setItem("step3Object", JSON.stringify(values));
     navigate("/step1");
   };
@@ -53,7 +53,7 @@ function Page3() {
       validationSchema: page3Schema,
 
       onSubmit: (values, action) => {
-        values.envgroupsStored = envGroupFields;
+        values.envsStored = envFields;
         localStorage.setItem("step3Object", JSON.stringify(values));
         navigate("/step3");
       },
@@ -61,44 +61,44 @@ function Page3() {
 
   const addInputField = (e) => {
     e.preventDefault();
-    setEnvGroupFields([
-      ...envGroupFields,
+    setEnvFields([
+      ...envFields,
       {
-        EnvironmentGroup: "",
-        env_name: "",
-        env_display_name: "",
-        EnvironmentGroupHost: [
-          { envGroupHostName: groupHostName ? groupHostName[0].EnvironmentGroup : "" }
+        EnvironmentDescription: "",
+        EnvironmentName: "",
+        EnvironmentDisplayName: "",
+        EnvironmentGroups: [
+          { EnvironmentGroupName: envGroupName ? envGroupName[0].EnvironmentGroup : "" } //not sure about EnvironmentGroup
         ],
       },
     ]);
   };
   const removeInputFields = (index) => {
-    const rows = [...envGroupFields];
+    const rows = [...envFields];
     rows.splice(index, 1);
-    setEnvGroupFields(rows);
+    setEnvFields(rows);
   };
 
   const handleChangeEnvGroup = (index, evnt) => {
     const { name, value } = evnt.target;
-    const list = [...envGroupFields];
+    const list = [...envFields];
     list[index][name] = value;
-    setEnvGroupFields(list);
+    setEnvFields(list);
   };
 
   // Host Operations //
   const handleChangeEnvHost = (indexp, indexchild) => {
     return (e) => {
-      setSelectedHostValue(e.target.value);
-      setEnvGroupFields((prevState) => {
+      setSelectedGroupName(e.target.value);
+      setEnvFields((prevState) => {
         return prevState.map((element, i) => {
           let newState = {};
           if (i === indexp) {
             newState = {
               ...element,
-              EnvironmentGroupHost: [...element.EnvironmentGroupHost],
+              EnvironmentGroups: [...element.EnvironmentGroups],
             };
-            newState.EnvironmentGroupHost[indexchild].envGroupHostName =
+            newState.EnvironmentGroups[indexchild].EnvironmentGroupName =
               e.target.value;
             return newState;
           } else {
@@ -111,14 +111,14 @@ function Page3() {
 
   const addHostNameField = (indexp) => {
     return (e) => {
-      setEnvGroupFields((prevState) => {
+      setEnvFields((prevState) => {
         return prevState.map((element, i) => {
           if (i === indexp) {
             return {
               ...element,
-              EnvironmentGroupHost: [
-                ...element.EnvironmentGroupHost,
-                { envGroupHostName: "" },
+              EnvironmentGroups: [
+                ...element.EnvironmentGroups,
+                { EnvironmentGroupName: "" },
               ],
             };
           } else {
@@ -130,9 +130,9 @@ function Page3() {
   };
 
   const removeHostNameField = (indexp, indexchild) => {
-    const rows = [...envGroupFields];
-    rows[indexp].EnvironmentGroupHost.splice(indexchild, 1);
-    setEnvGroupFields(rows);
+    const rows = [...envFields];
+    rows[indexp].EnvironmentGroups.splice(indexchild, 1);
+    setEnvFields(rows);
   };
 
   return (
@@ -140,57 +140,57 @@ function Page3() {
       <form className="row g-3" onSubmit={handleSubmit}>
         <div className="card card-body">
           <h2>Environments</h2>
-          {envGroupFields.map((data, indexp) => {
-            const { EnvironmentGroup, EnvironmentGroupHost, env_name, env_display_name } = data;
+          {envFields.map((data, indexp) => {
+            const { EnvironmentDescription, EnvironmentGroups, EnvironmentName, EnvironmentDisplayName } = data;
             return (
               <div key={indexp}>
                 <div className="row mrg-bottom-10 mrg-top-10">
                   <div className="col-md-6">
                     <div className="form-group toolicon">
-                      <label htmlFor="env_name" className="form-label">
+                      <label htmlFor="EnvironmentName" className="form-label">
                         Environment Name
                       </label>
                       <input
                         type="text"
                         className="form-control"
-                        id="env_name"
-                        name="env_name"
+                        id="EnvironmentName"
+                        name="EnvironmentName"
                         autoComplete="off"
                         placeholder="Environment Name"
-                        value={env_name}
+                        value={EnvironmentName}
                         onChange={(evnt) => handleChangeEnvGroup(indexp, evnt)}
                         onBlur={handleBlur}
                       />
                       <span className="tool-icon">
                         <CommonTooltip title={desc.environments_name} />
                       </span>
-                      {/* {errors.env_name && touched.env_name ? (
-                        <p className="form-error">{errors.env_name}</p>
+                      {/* {errors.EnvironmentName && touched.EnvironmentName ? (
+                        <p className="form-error">{errors.EnvironmentName}</p>
                       ) : null} */}
                     </div>
                   </div>
 
                   <div className="col-md-5">
                     <div className="form-group toolicon">
-                      <label htmlFor="env_display_name" className="form-label">
+                      <label htmlFor="EnvironmentDisplayName" className="form-label">
                         Environment Display Name
                       </label>
                       <input
                         type="text"
                         className="form-control"
-                        id="env_display_name"
-                        name="env_display_name"
+                        id="EnvironmentDisplayName"
+                        name="EnvironmentDisplayName"
                         autoComplete="off"
                         placeholder="Environment Display Name"
-                        value={env_display_name}
+                        value={EnvironmentDisplayName}
                         onChange={(evnt) => handleChangeEnvGroup(indexp, evnt)}
                         onBlur={handleBlur}
                       />
                       <span className="tool-icon">
-                        <CommonTooltip title={desc.env_display_name} />
+                        <CommonTooltip title={desc.EnvironmentDisplayName} />
                       </span>
-                      {/* {errors.env_display_name && touched.env_display_name ? (
-                        <p className="form-error">{errors.env_display_name}</p>
+                      {/* {errors.EnvironmentDisplayName && touched.EnvironmentDisplayName ? (
+                        <p className="form-error">{errors.EnvironmentDisplayName}</p>
                       ) : null} */}
                     </div>
                   </div>
@@ -206,8 +206,8 @@ function Page3() {
                       <input
                         type="text"
                         onChange={(evnt) => handleChangeEnvGroup(indexp, evnt)}
-                        value={EnvironmentGroup}
-                        name="EnvironmentGroup"
+                        value={EnvironmentDescription}
+                        name="EnvironmentDescription"
                         className="form-control"
                         placeholder="Environment Description"
                         onBlur={handleBlur}
@@ -218,32 +218,32 @@ function Page3() {
                     </div>
                   </div>
 
-                  {EnvironmentGroupHost.map((element, index) => {
+                  {EnvironmentGroups.map((element, index) => {
                     return (
                       <Fragment key={index}>
                         {index > 0 && <div className="col-md-6"></div>}
                         <div className="col-md-4">
                           <label
-                            htmlFor="envGroupHostName"
+                            htmlFor="EnvironmentGroupName"
                             className="form-label"
                           >
                             Environment Group
                           </label>
                           <select
-                            id="envGroupHostName"
-                            value={element.envGroupHostName}
+                            id="EnvironmentGroupName"
+                            value={element.EnvironmentGroupName}
                             onChange={handleChangeEnvHost(indexp, index)}
-                            name="envGroupHostName"
+                            name="EnvironmentGroupName"
                             className="form-select"
                           >
-                            {groupHostName.map((element) => {
+                            {envGroupName.map((element) => {
                               const { label, value } = element;
                               return (
                                 <option
                                   value={value}
                                   key={label}
                                   disabled={
-                                    +index && selectedHostValue === label
+                                    +index && selectedGroupName === label
                                   }
                                 >
                                   {label}
@@ -254,7 +254,7 @@ function Page3() {
                         </div>
 
                         <div className="col-md-2">
-                          {EnvironmentGroupHost.length !== 1 && (
+                          {EnvironmentGroups.length !== 1 && (
                             <img
                               className="img-icon"
                               src={minus}
@@ -262,7 +262,7 @@ function Page3() {
                               onClick={() => removeHostNameField(indexp, index)}
                             />
                           )}
-                          {EnvironmentGroupHost.length - 1 === index && (
+                          {EnvironmentGroups.length - 1 === index && (
                             <img
                               className="img-icon"
                               style={{ marginLeft: "15px" }}
@@ -281,7 +281,7 @@ function Page3() {
                 <div className="row" style={{ marginTop: "30px" }}>
                   <div className="col-md-7"></div>
                   <div className="col-md-5">
-                    {envGroupFields.length !== 1 && (
+                    {envFields.length !== 1 && (
                       <button
                         type="button"
                         className="btn btn-primary me-4"
@@ -290,7 +290,7 @@ function Page3() {
                         <i className="fa fa-minus me-2"></i>Remove
                       </button>
                     )}
-                    {envGroupFields.length - 1 === indexp && (
+                    {envFields.length - 1 === indexp && (
                       <button
                         type="button"
                         className="btn btn-primary"

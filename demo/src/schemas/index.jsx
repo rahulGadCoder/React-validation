@@ -158,24 +158,24 @@ export const page3Schema = Yup.object({
 
   env_name: Yup.string(),
   env_display_name: Yup.string(),
-  envgroups: Yup.array().nullable(true),
-  envgroupsStored: Yup.array().nullable(true),
+  envs: Yup.array().nullable(true),
+  envsStored: Yup.array().nullable(true),
 });
 
 export const initialValuesPage3 = {
-  envgroups: [
+  envs: [
     {
-      EnvironmentGroup: "",
-      env_name: "",
-      env_display_name: "",
-      EnvironmentGroupHost: [
+      EnvironmentDescription: "",
+      EnvironmentName: "",
+      EnvironmentDisplayName: "",
+      EnvironmentGroups: [
         {
-          envGroupHostName: "",
+            EnvironmentGroupName: "",
         },
       ],
     },
   ],
-  envgroupsStored: [],
+  envsStored: [],
 };
 
 // Page 4 //
