@@ -36,8 +36,8 @@ export const page1Schema = Yup.object({
 
 export const initialValuesPage1 = {
   project_id: "",
-  billing_account: "",
-  project_parent: "",
+  billing_account: null,
+  project_parent: null,
   project_create: false,
   apigee_instance_region: "us-central1",
   apigee_network_name: "apigee-network",
@@ -166,8 +166,8 @@ export const initialValuesPage3 = {
   envgroups: [
     {
       EnvironmentGroup: "",
-      env_name: "apigee-x-org",
-      env_display_name: "2592000s",
+      env_name: "",
+      env_display_name: "",
       EnvironmentGroupHost: [
         {
           envGroupHostName: "",
@@ -194,6 +194,7 @@ export const initialValuesPage4 = {
   user_managed_certificate: false,
   use_development_hostname: false,
   user_managed_certificate_location: "./certs/certificate.pem",
+  user_managed_certificate_key_location: "./certs/private_key.pem",
 };
 
 // "envgroups": [
