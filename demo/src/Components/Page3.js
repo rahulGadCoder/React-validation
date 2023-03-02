@@ -181,7 +181,7 @@ function Page3() {
                         id="env_display_name"
                         name="env_display_name"
                         autoComplete="off"
-                        placeholder="Environment Name"
+                        placeholder="Environment Display Name"
                         value={env_display_name}
                         onChange={(evnt) => handleChangeEnvGroup(indexp, evnt)}
                         onBlur={handleBlur}
@@ -209,7 +209,7 @@ function Page3() {
                         value={EnvironmentGroup}
                         name="EnvironmentGroup"
                         className="form-control"
-                        placeholder="Env Group"
+                        placeholder="Environment Description"
                         onBlur={handleBlur}
                       />
                       <span className="tool-icon">

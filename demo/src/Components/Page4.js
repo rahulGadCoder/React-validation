@@ -41,32 +41,56 @@ function Page4() {
     });
 
   // format envirnment group json //
-  function envGroupJson(array, step) {
-    if (step === "step2") {
-      array.forEach((element) => {
-        element.hostname = [];
-        element.hostname = element.EnvironmentGroupHost.map((el) => {
-          return el.envGroupHostName;
-        });
-        element.name = element.EnvironmentGroup;
-        delete element.EnvironmentGroup;
-        delete element.EnvironmentGroupHost;
-      });
-    } else {
-      array.forEach((element) => {
-        element.hostname = [];
-        element.hostname = element.EnvironmentGroupHost.map((el) => {
-          return el.envGroupHostName;
-        });
-        element.description = element.EnvironmentGroup;
-        element.name = element.env_name;
-        delete element.env_name;
-        delete element.EnvironmentGroup;
-        delete element.EnvironmentGroupHost;
-      });
-    }
+//   function envGroupJson(array, step) {
+//     if (step === "step2") {
+//       array.forEach((element) => {
+//         element.hostname = [];
+//         element.hostname = element.EnvironmentGroupHost.map((el) => {
+//           return el.envGroupHostName;
+//         });
+//         element.name = element.EnvironmentGroup;
+//         delete element.EnvironmentGroup;
+//         delete element.EnvironmentGroupHost;
+//       });
+//     } else {
+//       array.forEach((element) => {
+//         element.hostname = [];
+//         element.hostname = element.EnvironmentGroupHost.map((el) => {
+//           return el.envGroupHostName;
+//         });
+//         element.description = element.EnvironmentGroup;
+//         element.name = element.env_name;
+//         delete element.env_name;
+//         delete element.EnvironmentGroup;
+//         delete element.EnvironmentGroupHost;
+//       });
+//     }
 
-    return array;
+//     return array;
+//   }
+
+  function formatEnvGroups(envGroupsUnformatted){
+    let envGroups = {};
+    envGroupsUnformatted.forEach(element => {
+      envGroups[element.EnvironmentGroup] = [];
+      envGroups[element.EnvironmentGroup] = (element.EnvironmentGroupHost.map((el) => {
+        return el.envGroupHostName;
+      }));
+    });
+    return envGroups;
+  }
+
+  function formatEnvs(envsUnformatted){
+      let envs = {};
+      envsUnformatted.forEach(element => {
+        envs[element.env_name] = {}
+        envs[element.env_name].description = element.EnvironmentGroup;
+        envs[element.env_name].display_name = element.env_display_name;
+        envs[element.env_name].envgroups = element.EnvironmentGroupHost.map((el) => {
+            return el.envGroupHostName;
+          });
+      });
+      return envs;
   }
 
   const finalObj = () => {
@@ -99,10 +123,10 @@ function Page4() {
     finaljson.instance_key_rotation_period =
       step2Object.instance_key_rotation_period;
     finaljson.org_key_rotation_period = step2Object.org_key_rotation_period;
-    finaljson.envgroups = envGroupJson(step2Object.envgroupsStored, "step2");
+    finaljson.envgroups = formatEnvGroups(step2Object.envgroupsStored);
 
     // Step 3 //
-    finaljson.environments = envGroupJson(step3Object.envgroupsStored, "step3");
+    finaljson.environments = formatEnvs(step3Object.envgroupsStored);
 
     // Step 4 //
     finaljson.psc_ingress_network_name = step4Object.psc_ingress_network_name;
@@ -110,11 +134,13 @@ function Page4() {
     finaljson.user_managed_certificate = step4Object.user_managed_certificate;
     finaljson.user_managed_certificate_location =
       step4Object.user_managed_certificate_location;
+    finaljson.user_managed_certificate_key_location =
+      step4Object.user_managed_certificate_key_location;
     const jsonObject = JSON.stringify(finaljson);
     const blob = new Blob([jsonObject], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
-    link.download = "finaloutput.json";
+    link.download = "x-demo.auto.tfvars.json";
     link.href = url;
     link.click();
   };
@@ -202,9 +228,8 @@ function Page4() {
                   <span>
                     Make sure to place the certificate with name{" "}
                     <b>certificate.pem</b> and corresponding key file with name
-                    in
-                    <b>private.key.pem</b>
-                    in <b>./certs</b> directory
+                    <b>private_key.pem</b>
+                    in <b>./certs</b> directory in your terrafrom root directory.
                   </span>
                 </div>
               </div>
