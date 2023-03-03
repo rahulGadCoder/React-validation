@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Page.css";
 import { useFormik } from "formik";
@@ -18,6 +18,10 @@ const Page1 = () => {
         navigate("/step1");
       },
     });
+
+  useEffect(() => {
+      localStorage.clear();
+  }, []);
 
   return (
     <div className="container-md my-4 container-background">
