@@ -5,7 +5,7 @@ const NavBar = () => {
         <div>
             <nav className="navbar bg-dark fixed-top" data-bs-theme="dark">
                 <div class="container">
-                    <div class="row">
+                    <div class="row" style={{height: "40px"}}>
                         <div class="col-2">
                             <img class="img-fluid" src="Intelliswift-LoveNew-Logo-img.png" alt="Company Logo" />
                         </div>
